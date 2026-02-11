@@ -1,0 +1,62 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-11T05:24:45.815Z",
+  "summary": "The diff implements a single-page responsive brochure site with navbar, hero (with CTA and hero image), about, services (3), testimonials (3), contact info + validated contact form with local success state, and a footer with social placeholders and section jump links. SEO title/meta description and focus-visible styles are present. However, the generated image assets themselves are not evidenced as added under the required public path, and some unrequested backend/auth-related code was introduced.",
+  "missing_requirements": [
+    {
+      "id": "REQ-5",
+      "requirement": "Place the generated images into frontend/public/assets/generated (logo, hero banner, and 3 service icons) and use them in the website.",
+      "reason": "Components reference image paths under /assets/generated, but the diff does not show the actual image files being added under frontend/public/assets/generated (and the diff notes at least one added file was omitted due to limits). Without explicit evidence of the image files existing in that directory, this requirement cannot be confirmed as implemented.",
+      "evidence": [
+        "frontend/src/components/sections/Navbar.tsx",
+        "frontend/src/components/sections/Hero.tsx",
+        "frontend/src/components/sections/Services.tsx",
+        "frontend/src/components/sections/Footer.tsx",
+        "File diff summary: \"Omitted files due to limits: added=1\""
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Added an (empty) Motoko backend actor file even though a backend is not required for a brochure/landing page.",
+      "reason": "BuildRequest states the Motoko backend is available but not required for this brochure site; adding backend/main.mo is extra/unrequested implementation.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Introduced Internet Identity provider/hooks and actor-creation logic (authentication/agent plumbing) despite authentication not being required.",
+      "reason": "BuildRequest explicitly notes third-party auth is a non-goal and Internet Identity is supported but not required; the diff adds and wires Internet Identity context plus an actor hook.",
+      "evidence": [
+        "frontend/src/main.tsx",
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/contact/ContactForm.tsx",
+    "frontend/src/components/sections/About.tsx",
+    "frontend/src/components/sections/Contact.tsx",
+    "frontend/src/components/sections/Footer.tsx",
+    "frontend/src/components/sections/Hero.tsx",
+    "frontend/src/components/sections/Navbar.tsx",
+    "frontend/src/components/sections/Services.tsx",
+    "frontend/src/components/sections/Testimonials.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "frontend/src/App.tsx": "Main application component that composes all sections (Navbar, Hero, About, Services, Testimonials, Contact, Footer) into a single-page layout with semantic HTML structure.",
+  "frontend/src/components/sections/Navbar.tsx": "Sticky navigation bar with logo, desktop menu links, mobile sheet menu, and smooth scroll navigation to page sections.",
+  "frontend/src/components/sections/Hero.tsx": "Hero section with headline, subheadline, CTA buttons, and hero banner image in a two-column responsive layout.",
+  "frontend/src/components/sections/About.tsx": "About section with mission statement and three feature cards highlighting mission-driven, client-centered, and innovation-first values.",
+  "frontend/src/components/sections/Services.tsx": "Services section displaying three service cards (Consulting, Design, Support) with icons, titles, and descriptions in a responsive grid.",
+  "frontend/src/components/sections/Testimonials.tsx": "Testimonials section with three client review cards featuring quotes, names, and roles in a responsive grid layout.",
+  "frontend/src/components/sections/Contact.tsx": "Contact section with business contact information cards and embedded contact form in a two-column responsive layout.",
+  "frontend/src/components/contact/ContactForm.tsx": "Contact form component with name, email, and message fields, client-side validation, and local success state without backend integration.",
+  "frontend/src/components/sections/Footer.tsx": "Footer with logo, quick links, contact info, social media icons, copyright notice, and Caffeine.ai attribution with UTM tracking.",
+  "frontend/src/index.css": "Global styles with warm neutral OKLCH color system (amber/stone palette), focus-visible states, and smooth scrolling for both light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended theme for warm neutral design system, custom shadows, and consistent spacing/typography.",
+  "frontend/index.html": "HTML entry point with SEO-optimized title and meta description for the business website.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file as no backend queries are required for this static brochure website with local-only contact form."
+}

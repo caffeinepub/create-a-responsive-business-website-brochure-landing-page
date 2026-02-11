@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Empty Motoko actor with no functionality.",
+  "feature_evidence.json": "Feature evidence report mapping features to project files, components, and test IDs.",
+  "frontend-file-summaries.txt": "Contains prewritten summaries for all frontend files used in the project.",
+  "frontend/index.css": "Tailwind base styles and custom OKLCH color variables for light and dark themes.",
+  "frontend/index.html": "HTML entry point defining SEO title, meta description, and mounting root div.",
+  "frontend/src/App.tsx": "Main React component composing all site sections into a single-page layout.",
+  "frontend/src/components/contact/ContactForm.tsx": "Contact form with validation, success state, and local-only submission behavior.",
+  "frontend/src/components/sections/About.tsx": "About section with mission statement and feature cards using icon components.",
+  "frontend/src/components/sections/Contact.tsx": "Contact section showing contact details and embedding the contact form.",
+  "frontend/src/components/sections/Footer.tsx": "Footer with logo, quick links, contact info, social icons, and dynamic year.",
+  "frontend/src/components/sections/Hero.tsx": "Hero section with headline, description, CTA buttons, and a banner image featuring smooth scrolling links.",
+  "frontend/src/components/sections/Navbar.tsx": "Responsive navbar with desktop and mobile menus, smooth scrolling, and Internet Identity logo.",
+  "frontend/src/components/sections/Services.tsx": "Services section displaying a grid of cards describing three offerings with icons.",
+  "frontend/src/components/sections/Testimonials.tsx": "Testimonials section rendering client quotes in a card grid layout.",
+  "frontend/src/hooks/useActor.ts": "Hook that creates and manages a backend actor tied to Internet Identity, invalidating queries when identity changes.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Context and provider for managing Internet Identity authentication, login, logout, and identity persistence.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file noting no backend queries are required.",
+  "frontend/src/index.css": "Tailwind base styles, custom OKLCH color variables, dark mode settings, and global accessibility styles.",
+  "frontend/src/main.tsx": "App entry point wiring React Query and Internet Identity providers before rendering the app.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom colors, typography, container queries, animations, and extended theme settings.",
+  "project_state.json": "Stores the project’s current state, including schema version, feature list, image requirements, and pending requests. Defines existing implemented features and outlines required generated assets for a business website."
+}

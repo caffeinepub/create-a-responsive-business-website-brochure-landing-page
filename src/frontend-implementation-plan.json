@@ -1,0 +1,208 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Responsive single-page business brochure website",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement a responsive single-page layout with navbar, hero, about, services, testimonials, contact, and footer; enable in-page navigation to each section.",
+      "acceptanceCriteria": [
+        "The home page renders all required sections in a logical order and is usable on mobile and desktop breakpoints.",
+        "Navigation allows jumping to each section (e.g., anchor links / scroll targets).",
+        "All copy is in English and uses clear placeholder business content (e.g., 'Your Business Name', 'hello@yourbusiness.com')."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the single-page brochure layout composing Navbar, Hero, About, Services (3+), Testimonials (3+), Contact, and Footer sections with semantic section IDs for anchor navigation (e.g., #about, #services, #reviews, #contact). Ensure responsive layout and spacing across breakpoints."
+        },
+        {
+          "path": "frontend/src/components/sections/Navbar.tsx",
+          "operation": "create",
+          "description": "Add a top navigation bar with business name/logo area and anchor links to each section; include mobile-friendly behavior (e.g., collapsible menu). Use shadcn-ui components (e.g., Button, Sheet/Dropdown equivalents if available) to standardize interactions—verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/sections/Hero.tsx",
+          "operation": "create",
+          "description": "Add hero section with headline, subheadline, primary call-to-action button that scrolls to Contact, and space for a hero image. Use shadcn-ui Button for the primary CTA—verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/sections/About.tsx",
+          "operation": "create",
+          "description": "Add About section with English placeholder copy describing the business, mission, and value proposition with a clear H2 heading."
+        },
+        {
+          "path": "frontend/src/components/sections/Services.tsx",
+          "operation": "create",
+          "description": "Add Services section listing at least three services with titles and short descriptions, designed responsively (grid on desktop, stacked on mobile). Service icon rendering will be wired in REQ-5."
+        },
+        {
+          "path": "frontend/src/components/sections/Testimonials.tsx",
+          "operation": "create",
+          "description": "Add Testimonials/Reviews section with at least three items (name, role/company placeholder, quote). Use shadcn-ui Card components if available for consistent styling—verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/sections/Contact.tsx",
+          "operation": "create",
+          "description": "Add Contact section container with business email/phone/address placeholders and embed the contact form UI (form behavior completed in REQ-3)."
+        },
+        {
+          "path": "frontend/src/components/sections/Footer.tsx",
+          "operation": "create",
+          "description": "Add footer with logo area, brief placeholder tagline, and social link placeholders (e.g., LinkedIn, X, Instagram) using accessible link text."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Ensure the React entry continues to render the App component and includes the global stylesheet import used for the site-wide theme."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create and apply a consistent warm-neutral visual theme (non blue/purple-dominant) across typography, spacing, buttons, and section backgrounds.",
+      "acceptanceCriteria": [
+        "The site has a consistent design system (typography scale, spacing, and component styling) across all sections.",
+        "Primary and secondary actions have consistent button styling.",
+        "The primary color palette is not blue/purple-dominant."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Define global theme tokens and base styles (CSS variables used by Tailwind/shadcn-ui color system), selecting a warm neutral primary palette (e.g., amber/stone/emerald-leaning) and avoiding blue/purple dominance. Add consistent typography defaults, section spacing conventions, and focus-visible styling."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions only as needed to support the warm-neutral design system (e.g., container spacing defaults, typographic scale usage) while keeping the existing CSS-variable-based color setup."
+        },
+        {
+          "path": "frontend/src/components/sections/Hero.tsx",
+          "operation": "modify",
+          "description": "Apply the design system consistently to hero layout: typographic scale, button variants, spacing, and background treatment. Use shadcn-ui Button variants for consistent styling—verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/sections/Services.tsx",
+          "operation": "modify",
+          "description": "Apply consistent card/panel styling, spacing, and headings aligned with the theme. Use shadcn-ui Card/Badge components if available—verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/sections/Testimonials.tsx",
+          "operation": "modify",
+          "description": "Ensure testimonial items match the theme via shared surface/background and typographic styling. Use shadcn-ui Card if available—verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/sections/Footer.tsx",
+          "operation": "modify",
+          "description": "Ensure footer uses the same palette, link styling, and spacing rules as the rest of the site, with clear hover/focus states."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add a contact form with client-side validation and a local non-backend submission confirmation state.",
+      "acceptanceCriteria": [
+        "Form shows validation errors for empty required fields and invalid email format.",
+        "Submitting the form results in a clear user confirmation (e.g., 'Thanks—we will get back to you soon') without requiring any third-party service.",
+        "No backend calls are required for the contact form behavior."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/contact/ContactForm.tsx",
+          "operation": "create",
+          "description": "Implement the contact form UI with fields for name, email, and message; add client-side validation (required fields and email format) and a local success/thank-you state on submit (no backend calls). Use shadcn-ui Input/Textarea/Button components if available for consistent styling—verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/sections/Contact.tsx",
+          "operation": "modify",
+          "description": "Wire ContactForm into the Contact section and ensure the confirmation state is clearly visible after submission; keep business contact placeholders (email/phone/address) visible and accessible."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add SEO/sharing metadata and ensure accessible semantic structure, focus states, and sufficient color contrast.",
+      "acceptanceCriteria": [
+        "The page has a meaningful title and meta description.",
+        "Headings follow a logical hierarchy (single H1, then H2s for sections).",
+        "Interactive elements are keyboard navigable with visible focus styling."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Add/confirm a meaningful document title and include a meta description suitable for a generic small business brochure site; keep the document language set to English."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure heading hierarchy: a single H1 in the hero, and H2 headings for each subsequent section. Confirm landmarks/semantics (nav, main, section, footer) and keyboard-friendly skip/jump behavior for in-page navigation."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Ensure visible focus styles for interactive elements (links, buttons, inputs) using focus-visible patterns; verify color contrast for text on all themed surfaces."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add the required generated images under frontend/public/assets/generated and integrate them into navbar/footer, hero, and services.",
+      "acceptanceCriteria": [
+        "All required generated images exist under frontend/public/assets/generated.",
+        "The logo appears in the navbar and footer.",
+        "The hero image is visible in the hero section.",
+        "Service icons are displayed alongside service items."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/business-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add generated asset file at the exact path frontend/public/assets/generated/business-logo.dim_512x512.png so it can be referenced as a static image in the UI."
+        },
+        {
+          "path": "frontend/public/assets/generated/hero-banner.dim_1600x900.png",
+          "operation": "create",
+          "description": "Add generated asset file at the exact path frontend/public/assets/generated/hero-banner.dim_1600x900.png so it can be referenced as a static image in the hero section."
+        },
+        {
+          "path": "frontend/public/assets/generated/icon-consulting.dim_256x256.png",
+          "operation": "create",
+          "description": "Add generated asset file at the exact path frontend/public/assets/generated/icon-consulting.dim_256x256.png for the Consulting service icon."
+        },
+        {
+          "path": "frontend/public/assets/generated/icon-design.dim_256x256.png",
+          "operation": "create",
+          "description": "Add generated asset file at the exact path frontend/public/assets/generated/icon-design.dim_256x256.png for the Design service icon."
+        },
+        {
+          "path": "frontend/public/assets/generated/icon-support.dim_256x256.png",
+          "operation": "create",
+          "description": "Add generated asset file at the exact path frontend/public/assets/generated/icon-support.dim_256x256.png for the Support service icon."
+        },
+        {
+          "path": "frontend/src/components/sections/Navbar.tsx",
+          "operation": "modify",
+          "description": "Render the logo image from frontend/public/assets/generated/business-logo.dim_512x512.png within the navbar with appropriate alt text and sizing."
+        },
+        {
+          "path": "frontend/src/components/sections/Footer.tsx",
+          "operation": "modify",
+          "description": "Render the logo image from frontend/public/assets/generated/business-logo.dim_512x512.png within the footer with appropriate alt text and sizing."
+        },
+        {
+          "path": "frontend/src/components/sections/Hero.tsx",
+          "operation": "modify",
+          "description": "Render the hero image from frontend/public/assets/generated/hero-banner.dim_1600x900.png in the hero section (responsive sizing, decorative/meaningful alt text as appropriate)."
+        },
+        {
+          "path": "frontend/src/components/sections/Services.tsx",
+          "operation": "modify",
+          "description": "Render service icons alongside their respective service items using: frontend/public/assets/generated/icon-consulting.dim_256x256.png, frontend/public/assets/generated/icon-design.dim_256x256.png, and frontend/public/assets/generated/icon-support.dim_256x256.png with accessible alt text."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "kind": "build_request",
+  "title": "Create a responsive business website (brochure/landing page)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a responsive business website frontend suitable for a generic small business, with a single-page layout containing: a top navigation bar, a hero section with headline + subheadline + primary call-to-action button, an About section, a Services section (at least 3 services), a Testimonials/Reviews section (at least 3 items), a Contact section (business email/phone/address placeholders), and a footer with social links placeholders.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "CREATE WEBSITE FOR BUSINESS"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The home page renders all required sections in a logical order and is usable on mobile and desktop breakpoints.",
+        "Navigation allows jumping to each section (e.g., anchor links / scroll targets).",
+        "All copy is in English and uses clear placeholder business content (e.g., 'Your Business Name', 'hello@yourbusiness.com')."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a coherent visual theme for the business website and apply it consistently across all sections (colors, typography, spacing, button styles, and section backgrounds). Avoid a blue/purple primary palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "CREATE WEBSITE FOR BUSINESS"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The site has a consistent design system (typography scale, spacing, and component styling) across all sections.",
+        "Primary and secondary actions have consistent button styling.",
+        "The primary color palette is not blue/purple-dominant."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a Contact form section with fields for name, email, and message, including basic client-side validation and a non-backend submission behavior that works without external services (e.g., mailto link or a local 'Thank you' state).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "CREATE WEBSITE FOR BUSINESS"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form shows validation errors for empty required fields and invalid email format.",
+        "Submitting the form results in a clear user confirmation (e.g., 'Thanks—we will get back to you soon') without requiring any third-party service.",
+        "No backend calls are required for the contact form behavior."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add basic SEO and sharing metadata for the website (document title and meta description) and ensure accessible markup (semantic headings, visible focus states, and sufficient color contrast for text).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "CREATE WEBSITE FOR BUSINESS"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The page has a meaningful title and meta description.",
+        "Headings follow a logical hierarchy (single H1, then H2s for sections).",
+        "Interactive elements are keyboard navigable with visible focus styling."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Place the generated images into frontend/public/assets/generated and use them in the website (logo in navbar/footer, hero image in hero section, service icons in services section).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "CREATE WEBSITE FOR BUSINESS"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All required generated images exist under frontend/public/assets/generated.",
+        "The logo appears in the navbar and footer.",
+        "The hero image is visible in the hero section.",
+        "Service icons are displayed alongside service items."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use English for all user-facing text.",
+    "Do not edit files under frontend/src/components/ui or the Internet Identity hook files listed as immutable by the system context.",
+    "Stay within the provided stack (React + TypeScript + Tailwind + React Query; Motoko backend available but not required for this brochure site)."
+  ],
+  "nonGoals": [
+    "E-commerce functionality (cart, checkout, payments).",
+    "Third-party authentication providers (only Internet Identity is supported, and it is not required for this request).",
+    "Blog/CMS with rich content editing UI.",
+    "Integrations with external email/SMS providers or CRMs."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimal modern logo mark with clean lines, warm neutral palette (business-logo.dim_512x512.png)",
+      "Wide hero banner image with abstract shapes and warm neutral tones (hero-banner.dim_1600x900.png)",
+      "Simple line icon for 'Consulting' service, matching logo style (icon-consulting.dim_256x256.png)",
+      "Simple line icon for 'Design' service, matching logo style (icon-design.dim_256x256.png)",
+      "Simple line icon for 'Support' service, matching logo style (icon-support.dim_256x256.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}
