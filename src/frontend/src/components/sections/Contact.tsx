@@ -1,24 +1,18 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import ContactForm from '../contact/ContactForm';
 
-const contactInfo = [
+const offices = [
   {
-    icon: Mail,
-    label: 'Email',
-    value: 'hello@yourbusiness.com',
-    href: 'mailto:hello@yourbusiness.com',
+    name: 'Head Office',
+    address: 'G-05, Aniruddh Plaza, Shantinagar Road, Nr. Corporation Bank, Ponda - Goa 403401',
+    phones: ['8975739464', '7822881010'],
+    email: 'guru.associates36@gmail.com',
   },
   {
-    icon: Phone,
-    label: 'Phone',
-    value: '+1 (555) 123-4567',
-    href: 'tel:+15551234567',
-  },
-  {
-    icon: MapPin,
-    label: 'Address',
-    value: '123 Business Street, Suite 100, City, State 12345',
-    href: null,
+    name: 'Branch Office',
+    address: 'FF2, First Floor Omkar Adonis Blue Plaza, Deulwada Marcel - Goa 403 107',
+    phones: ['9370567036'],
+    email: 'guruassociatesmarcel@yahoo.com',
   },
 ];
 
@@ -31,46 +25,54 @@ export default function Contact() {
             Get In Touch
           </h2>
           <p className="text-lg text-muted-foreground sm:text-xl">
-            Ready to take your business to the next level? We'd love to hear from you. Reach out today and let's start a conversation.
+            Ready to discuss your tax, financial, or property needs? We'd love to hear from you. Reach out today and let's start a conversation.
           </p>
         </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-semibold mb-6">Our Offices</h3>
               <div className="space-y-6">
-                {contactInfo.map((info) => {
-                  const Icon = info.icon;
-                  const content = (
-                    <div className="flex items-start space-x-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium mb-1">{info.label}</p>
-                        <p className="text-muted-foreground">{info.value}</p>
-                      </div>
+                {offices.map((office) => (
+                  <div
+                    key={office.name}
+                    className="p-6 rounded-lg border border-border/50 bg-card space-y-4"
+                  >
+                    <h4 className="text-lg font-semibold text-primary">{office.name}</h4>
+                    
+                    <div className="flex items-start space-x-3">
+                      <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">{office.address}</p>
                     </div>
-                  );
 
-                  return info.href ? (
-                    <a
-                      key={info.label}
-                      href={info.href}
-                      className="block p-4 rounded-lg border border-border/50 hover:border-border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <div
-                      key={info.label}
-                      className="p-4 rounded-lg border border-border/50"
-                    >
-                      {content}
+                    {office.phones.length > 0 && (
+                      <div className="space-y-2">
+                        {office.phones.map((phone) => (
+                          <div key={phone} className="flex items-center space-x-3">
+                            <Phone className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                            <a
+                              href={`tel:+91${phone}`}
+                              className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
+                            >
+                              {phone}
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="flex items-center space-x-3">
+                      <Mail className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                      <a
+                        href={`mailto:${office.email}`}
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded break-all"
+                      >
+                        {office.email}
+                      </a>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

@@ -1,49 +1,26 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
-  "summary": "Business website project",
+  "projectStateVersion": 7,
+  "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [],
+  "known_issues": [
+    "Deployment error encountered during build/deploy sequence"
+  ],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Minimal modern logo mark with clean lines, warm neutral palette (business-logo.dim_512x512.png)\n- Wide hero banner image with abstract shapes and warm neutral tones (hero-banner.dim_1600x900.png)\n- Simple line icon for 'Consulting' service, matching logo style (icon-consulting.dim_256x256.png)\n- Simple line icon for 'Design' service, matching logo style (icon-design.dim_256x256.png)\n- Simple line icon for 'Support' service, matching logo style (icon-support.dim_256x256.png)",
   "existing_features": [
     {
-      "id": "feature-create-a-responsive-business-website-frontend-suitable-for-a-generic-small-business-with-a-single-page-layout-containing-a-top-navigation-bar-a-hero-section-with-headline-subheadline-primary-call-to-action-button-an-about-section-a-services-section-at-least-3-services-a-testimonials-reviews-section-at-least-3-items-a-contact-section-business-email-phone-address-placeholders-and-a-footer-with-social-links-placeholders",
-      "title": "Create a responsive business website frontend suitable for a generic small business, with a single-page layout containing: a top navigation bar, a hero section with headline + subheadline + primary call-to-action button, an About section, a Services section (at least 3 services), a Testimonials/Reviews section (at least 3 items), a Contact section (business email/phone/address placeholders), and a footer with social links placeholders.",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-coherent-visual-theme-for-the-business-website-and-apply-it-consistently-across-all-sections-colors-typography-spacing-button-styles-and-section-backgrounds-avoid-a-blue-purple-primary-palette",
-      "title": "Implement a coherent visual theme for the business website and apply it consistently across all sections (colors, typography, spacing, button styles, and section backgrounds). Avoid a blue/purple primary palette.",
+      "id": "feature-update-the-services-section-content-frontend-src-components-sections-services-tsx-to-display-the-user-provided-categorized-service-lists-in-english-using-exactly-these-categories-and-items-a-loan-consultancy-services-home-loans-mortgage-loans-commercial-loans-education-loan-business-loans-vehicle-loan-property-loan-gold-loan-personal-loan-b-other-services-pan-new-correction-passport-assistance-shop-establishment-trade-license-fire-licence-registration-foods-drugs-license-digital-signature-class-3-goa-online-services-c-tax-consultant-income-tax-returns-gst-registration-returns-e-tds-tcs-registration-returns-esic-registration-returns-epfo-registration-returns-vat-registration-returns-d-investment-advisory-life-insurance-health-insurance-vehicle-insurance-mutual-fund-elss-sip-national-pension-scheme-estate-creation-wealth-creation-tax-financial-planning-government-bond-ipo-demat-account-e-property-consultancy-sale-deed-title-search-report-property-valuation-report-mutation-partition-conversion-sanad-architect-drawing-planning-tcp-technical-clearance-plan-approved-tcp-completion-order-occupancy-certificate-panchayat-municipal-health-noc-temporary-permanent-water-electricity-connection-rera-registrations-ensure-the-services-grid-renders-all-categories-update-layout-as-needed-so-no-category-is-omitted",
+      "title": "Update the Services section content (frontend/src/components/sections/Services.tsx) to display the user-provided categorized service lists in English, using exactly these categories and items:\n\nA) Loan Consultancy Services: Home Loans; Mortgage Loans; Commercial Loans; Education Loan; Business Loans; Vehicle Loan; Property Loan; Gold Loan; Personal Loan.\n\nB) Other Services: PAN New & Correction; Passport Assistance; Shop & Establishment; Trade License; Fire Licence Registration; Foods & Drugs License; Digital Signature Class 3; Goa Online Services.\n\nC) Tax Consultant: Income Tax Returns; GST Registration/Returns; E-TDS/TCS Registration/Returns; ESIC Registration/Returns; EPFO Registration/Returns; VAT Registration/Returns.\n\nD) Investment Advisory: Life Insurance; Health Insurance; Vehicle Insurance; Mutual Fund; ELSS/SIP; National Pension Scheme; Estate Creation; Wealth Creation; Tax & Financial Planning; Government Bond; IPO & Demat Account.\n\nE) Property Consultancy: Sale Deed; Title Search Report; Property Valuation Report; Mutation/Partition Conversion; Sanad; Architect Drawing & Planning; TCP Technical Clearance (Plan Approved); TCP Completion Order; Occupancy Certificate; Panchayat & Municipal; Health NOC (Temporary & Permanent); Water & Electricity Connection; RERA Registrations.\n\nEnsure the Services grid renders all categories (update layout as needed so no category is omitted).",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-contact-form-section-with-fields-for-name-email-and-message-including-basic-client-side-validation-and-a-non-backend-submission-behavior-that-works-without-external-services-e-g-mailto-link-or-a-local-thank-you-state",
-      "title": "Add a Contact form section with fields for name, email, and message, including basic client-side validation and a non-backend submission behavior that works without external services (e.g., mailto link or a local 'Thank you' state).",
+      "id": "feature-update-the-services-section-content-in-frontend-src-components-sections-services-tsx-so-the-category-titles-and-every-listed-service-item-are-in-english-and-match-the-requested-categorized-lists-exactly-including-punctuation-such-as-slashes-and-parentheses-ensuring-all-five-categories-render-in-the-services-grid",
+      "title": "Update the Services section content in frontend/src/components/sections/Services.tsx so the category titles and every listed service item are in English and match the requested categorized lists exactly (including punctuation such as slashes and parentheses), ensuring all five categories render in the Services grid.",
       "reqIds": [
         "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-basic-seo-and-sharing-metadata-for-the-website-document-title-and-meta-description-and-ensure-accessible-markup-semantic-headings-visible-focus-states-and-sufficient-color-contrast-for-text",
-      "title": "Add basic SEO and sharing metadata for the website (document title and meta description) and ensure accessible markup (semantic headings, visible focus states, and sufficient color contrast for text).",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-place-the-generated-images-into-frontend-public-assets-generated-and-use-them-in-the-website-logo-in-navbar-footer-hero-image-in-hero-section-service-icons-in-services-section",
-      "title": "Place the generated images into frontend/public/assets/generated and use them in the website (logo in navbar/footer, hero image in hero section, service icons in services section).",
-      "reqIds": [
-        "REQ-5"
       ],
       "version": 1
     }
@@ -51,13 +28,20 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create a website for a business",
+      "summary": "Update the `name` fields in the `testimonials` array in `frontend/src/components/sections/Testimonials.tsx` so the Testimonials section displays these client names exactly: (1) Pankaj Vaman Marathe, (2) Kajal Borkar, (3) Smita Bagali. Do not change the existing testimonial `id` values or any `quote` text.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add/update site content to include a categorized Services list covering: Loan Consultancy Services (home, mortgage, commercial, education, business, vehicle, property, gold, personal loans), Other Services (PAN new/correction, passport assistance, shop & establishment, trade license, fire licence registration, foods & drugs license, digital signature class 3, Goa online services), Tax Consultant (income tax returns, GST reg/returns, E-TDS/TCS reg/returns, ESIC reg/returns, EPFO reg/returns, VAT reg/returns), Investment Advisory (life/health/vehicle insurance, mutual fund, ELSS/SIP, national pension scheme, estate/wealth creation, tax & financial planning, government bond, IPO & demat account), and Property Consultancy (sale deed, title search report, property valuation report, mutation/partition conversion, sanad, architect drawing & planning, TCP technical clearance/plan approved, TCP completion order, occupancy certificate, panchayat & municipal, health NOC temporary/permanent, water & electricity connection, RERA registrations).",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Create a responsive business website (brochure/landing page)",
+  "projectName": "Update testimonial client names",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

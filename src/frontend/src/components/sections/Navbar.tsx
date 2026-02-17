@@ -7,6 +7,7 @@ const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#services', label: 'Services' },
   { href: '#reviews', label: 'Reviews' },
+  { href: '#photos', label: 'Photos' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -31,10 +32,10 @@ export default function Navbar() {
         }}>
           <img 
             src="/assets/generated/business-logo.dim_512x512.png" 
-            alt="Your Business Name" 
+            alt="GURU & ASSOCIATES PRIVATE LIMITED" 
             className="h-10 w-10"
           />
-          <span className="text-xl font-bold tracking-tight">Your Business</span>
+          <span className="text-xl font-bold tracking-tight">GURU & ASSOCIATES PRIVATE LIMITED</span>
         </a>
 
         {/* Desktop Navigation */}

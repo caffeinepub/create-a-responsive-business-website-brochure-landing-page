@@ -3,18 +3,18 @@ import { Target, Users, Zap } from 'lucide-react';
 const features = [
   {
     icon: Target,
-    title: 'Mission-Driven',
-    description: 'We focus on delivering measurable results that align with your business goals.',
+    title: 'Expert Guidance',
+    description: 'Professional consulting services with deep expertise in tax, finance, and property matters.',
   },
   {
     icon: Users,
     title: 'Client-Centered',
-    description: 'Your success is our priority. We build lasting partnerships based on trust.',
+    description: 'Your success is our priority. We build lasting partnerships based on trust and reliability.',
   },
   {
     icon: Zap,
-    title: 'Innovation First',
-    description: 'We leverage cutting-edge technology to keep you ahead of the competition.',
+    title: 'Comprehensive Solutions',
+    description: 'From tax planning to property documentation, we provide end-to-end consulting services.',
   },
 ];
 
@@ -24,11 +24,10 @@ export default function About() {
       <div className="container">
         <div className="mx-auto max-w-3xl text-center mb-12 md:mb-16">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            About Your Business
+            About Guru & Associates
           </h2>
           <p className="text-lg text-muted-foreground sm:text-xl">
-            We are a team of passionate professionals dedicated to helping businesses thrive in the digital age. 
-            With years of experience and a commitment to excellence, we deliver solutions that make a real difference.
+            We are a trusted consulting firm serving clients across Goa with expertise in tax and financial consulting, financial advisory services, and comprehensive property consulting solutions.
           </p>
         </div>
 

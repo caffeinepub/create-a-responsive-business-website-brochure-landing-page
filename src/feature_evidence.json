@@ -2,100 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-responsive-business-website-frontend-suitable-for-a-generic-small-business-with-a-single-page-layout-containing-a-top-navigation-bar-a-hero-section-with-headline-subheadline-primary-call-to-action-button-an-about-section-a-services-section-at-least-3-services-a-testimonials-reviews-section-at-least-3-items-a-contact-section-business-email-phone-address-placeholders-and-a-footer-with-social-links-placeholders",
-      "featureTitle": "Create a responsive business website frontend suitable for a generic small business, with a single-page layout containing: a top navigation bar, a hero section with headline + subheadline + primary call-to-action button, an About section, a Services section (at least 3 services), a Testimonials/Reviews section (at least 3 items), a Contact section (business email/phone/address placeholders), and a footer with social links placeholders.",
+      "featureId": "feature-update-the-services-section-content-in-frontend-src-components-sections-services-tsx-so-the-category-titles-and-every-listed-service-item-are-in-english-and-match-the-requested-categorized-lists-exactly-including-punctuation-such-as-slashes-and-parentheses-ensuring-all-five-categories-render-in-the-services-grid",
+      "featureTitle": "Update the Services section content in frontend/src/components/sections/Services.tsx so the category titles and every listed service item are in English and match the requested categorized lists exactly (including punctuation such as slashes and parentheses), ensuring all five categories render in the Services grid.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/About.tsx",
-        "frontend/src/components/sections/Contact.tsx",
-        "frontend/src/components/sections/Footer.tsx",
-        "frontend/src/components/sections/Hero.tsx",
-        "frontend/src/components/sections/Navbar.tsx",
-        "frontend/src/components/sections/Services.tsx",
-        "frontend/src/components/sections/Testimonials.tsx",
-        "frontend/src/main.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-a-coherent-visual-theme-for-the-business-website-and-apply-it-consistently-across-all-sections-colors-typography-spacing-button-styles-and-section-backgrounds-avoid-a-blue-purple-primary-palette",
-      "featureTitle": "Implement a coherent visual theme for the business website and apply it consistently across all sections (colors, typography, spacing, button styles, and section backgrounds). Avoid a blue/purple primary palette.",
-      "files": [
-        "frontend/src/components/sections/Footer.tsx",
-        "frontend/src/components/sections/Hero.tsx",
-        "frontend/src/components/sections/Services.tsx",
-        "frontend/src/components/sections/Testimonials.tsx",
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-contact-form-section-with-fields-for-name-email-and-message-including-basic-client-side-validation-and-a-non-backend-submission-behavior-that-works-without-external-services-e-g-mailto-link-or-a-local-thank-you-state",
-      "featureTitle": "Add a Contact form section with fields for name, email, and message, including basic client-side validation and a non-backend submission behavior that works without external services (e.g., mailto link or a local 'Thank you' state).",
-      "files": [
-        "frontend/src/components/contact/ContactForm.tsx",
-        "frontend/src/components/sections/Contact.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-basic-seo-and-sharing-metadata-for-the-website-document-title-and-meta-description-and-ensure-accessible-markup-semantic-headings-visible-focus-states-and-sufficient-color-contrast-for-text",
-      "featureTitle": "Add basic SEO and sharing metadata for the website (document title and meta description) and ensure accessible markup (semantic headings, visible focus states, and sufficient color contrast for text).",
-      "files": [
-        "frontend/index.html",
-        "frontend/src/App.tsx",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-place-the-generated-images-into-frontend-public-assets-generated-and-use-them-in-the-website-logo-in-navbar-footer-hero-image-in-hero-section-service-icons-in-services-section",
-      "featureTitle": "Place the generated images into frontend/public/assets/generated and use them in the website (logo in navbar/footer, hero image in hero section, service icons in services section).",
-      "files": [
-        "frontend/src/components/sections/Footer.tsx",
-        "frontend/src/components/sections/Hero.tsx",
-        "frontend/src/components/sections/Navbar.tsx",
         "frontend/src/components/sections/Services.tsx"
       ],
       "components": [
@@ -106,7 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-5"
+        "REQ-3"
       ],
       "confidence": "high"
     }

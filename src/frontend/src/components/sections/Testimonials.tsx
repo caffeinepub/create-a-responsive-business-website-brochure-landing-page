@@ -3,18 +3,18 @@ import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Sarah Johnson',
-    role: 'CEO, TechStart Inc.',
+    id: 'testimonial-1',
+    name: 'Pankaj Vaman Marathe',
     quote: 'Working with this team has been transformative for our business. Their expertise and dedication helped us achieve results beyond our expectations.',
   },
   {
-    name: 'Michael Chen',
-    role: 'Founder, Creative Solutions',
+    id: 'testimonial-2',
+    name: 'Kajal Borkar',
     quote: 'The level of professionalism and attention to detail is outstanding. They truly understand what it takes to deliver exceptional service.',
   },
   {
-    name: 'Emily Rodriguez',
-    role: 'Director of Operations, Global Ventures',
+    id: 'testimonial-3',
+    name: 'Smita Bagali',
     quote: 'From start to finish, the experience was seamless. They listened to our needs and delivered solutions that perfectly aligned with our goals.',
   },
 ];
@@ -34,7 +34,7 @@ export default function Testimonials() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <Card key={testimonial.name} className="border-border/50">
+            <Card key={testimonial.id} className="border-border/50">
               <CardContent className="pt-6">
                 <div className="flex flex-col space-y-4">
                   <Quote className="h-8 w-8 text-primary/40" />
@@ -43,7 +43,6 @@ export default function Testimonials() {
                   </p>
                   <div className="pt-4 border-t border-border/50">
                     <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                   </div>
                 </div>
               </CardContent>
