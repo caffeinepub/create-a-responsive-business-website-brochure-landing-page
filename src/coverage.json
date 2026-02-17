@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-17T04:23:53.286Z",
+  "generatedAt": "2026-02-17T10:01:05.490Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,14 +11,14 @@
     "implemented": 1,
     "items": [
       {
-        "id": "REQ-3",
-        "summary": "Update the Services section content in frontend/src/components/sections/Services.tsx so the category titles and every listed service item are in English and match the requested categorized lists exactly (including punctuation such as slashes and parentheses), ensuring all five categories render in the Services grid.",
+        "id": "REQ-1",
+        "summary": "Update the About section (frontend/src/components/sections/About.tsx) to include an additional subsection under the existing \"About Guru & Associates\" content: add a separate heading (English) reading \"Guru & Associates is into\" placed above a 3-card grid of boxed items styled consistently with the existing \"Expert Guidance\" feature cards, and ensure the three boxes display these exact titles: (1) \"GURU & ASSOCIATE WEALTH CREATOR\" (2) \"G.P. ASSOCIATE LEGAL ADVISOR\" (3) \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/Services.tsx"
+          "frontend/src/components/sections/About.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/Services.tsx"
+          "frontend/src/components/sections/About.tsx"
         ]
       }
     ]
@@ -28,7 +28,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/sections/Services.tsx",
+    "frontend/src/components/sections/About.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,25 +1,22 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Services content update to requested English categories and lists",
+  "title": "Add \"Guru & Associates is into\" divisions subsection to About section",
   "requirements": [
     {
-      "id": "REQ-3",
-      "summary": "Update Services section category titles and service item lists to match the requested English categories and exact punctuation, ensuring all five categories render in the grid at all breakpoints.",
+      "id": "REQ-1",
+      "summary": "Add a new \"Guru & Associates is into\" heading and a 3-card boxed grid under the existing About content, matching the existing feature-card styling and using the exact provided titles.",
       "acceptanceCriteria": [
-        "The Services section renders exactly 5 categories: Loan Consultancy Services; Other Services; Tax Consultant; Investment Advisory; Property Consultancy.",
-        "The Loan Consultancy Services items are exactly: Home Loans; Mortgage Loans; Commercial Loans; Education Loan; Business Loans; Vehicle Loan; Property Loan; Gold Loan; Personal Loan.",
-        "The Other Services items are exactly: PAN New & Correction; Passport Assistance; Shop & Establishment; Trade License; Fire Licence Registration; Foods & Drugs License; Digital Signature Class 3; Goa Online Services.",
-        "The Tax Consultant items are exactly: Income Tax Returns; GST Registration/Returns; E-TDS/TCS Registration/Returns; ESIC Registration/Returns; EPFO Registration/Returns; VAT Registration/Returns.",
-        "The Investment Advisory items are exactly: Life Insurance; Health Insurance; Vehicle Insurance; Mutual Fund; ELSS/SIP; National Pension Scheme; Estate Creation; Wealth Creation; Tax & Financial Planning; Government Bond; IPO & Demat Account.",
-        "The Property Consultancy items are exactly: Sale Deed; Title Search Report; Property Valuation Report; Mutation/Partition Conversion; Sanad; Architect Drawing & Planning; TCP Technical Clearance (Plan Approved); TCP Completion Order; Occupancy Certificate; Panchayat & Municipal; Health NOC (Temporary & Permanent); Water & Electricity Connection; RERA Registrations.",
-        "No category is omitted at any responsive breakpoint (mobile/tablet/desktop)."
+        "The About section shows a new subsection heading with the exact English text: \"Guru & Associates is into\".",
+        "Directly below that heading, there is a responsive 3-column (desktop) grid of three boxed cards.",
+        "Each card displays the exact titles: \"GURU & ASSOCIATE WEALTH CREATOR\", \"G.P. ASSOCIATE LEGAL ADVISOR\", and \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
+        "The three new boxes use the same visual card treatment as the existing feature cards (boxed layout with border/rounded corners/consistent spacing and hover behavior)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/Services.tsx",
+          "path": "frontend/src/components/sections/About.tsx",
           "operation": "modify",
-          "description": "Update the `services` data to match the requested five category titles and service item text exactly, including punctuation (e.g., change spaced slashes to unspaced slashes, add required parentheses, and add the missing slash in Mutation/Partition Conversion). Keep the Services grid rendering all five categories across breakpoints. Uses shadcn-ui Card components for layout; verify the component's usage instructions before implementing."
+          "description": "Within the About section, insert a new subsection below the existing \"About Guru & Associates\" content: add an English heading with exact text \"Guru & Associates is into\" and render the three division items as a responsive 3-card grid. Reuse the same card container classes and hover/border/spacing treatment used by the existing feature cards (e.g., the \"Expert Guidance\" cards) so the new boxes are visually consistent, and ensure the card titles exactly match the required strings."
         }
       ]
     }

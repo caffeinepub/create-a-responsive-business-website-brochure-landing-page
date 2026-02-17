@@ -1,4 +1,4 @@
-import { Target, Users, Zap } from 'lucide-react';
+import { Target, Users, Zap, Briefcase, Scale, Film } from 'lucide-react';
 
 const features = [
   {
@@ -15,6 +15,21 @@ const features = [
     icon: Zap,
     title: 'Comprehensive Solutions',
     description: 'From tax planning to property documentation, we provide end-to-end consulting services.',
+  },
+];
+
+const divisions = [
+  {
+    icon: Briefcase,
+    title: 'GURU & ASSOCIATE WEALTH CREATOR',
+  },
+  {
+    icon: Scale,
+    title: 'G.P. ASSOCIATE LEGAL ADVISOR',
+  },
+  {
+    icon: Film,
+    title: 'GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM',
   },
 ];
 
@@ -44,6 +59,29 @@ export default function About() {
                 </div>
                 <h3 className="text-xl font-semibold">{feature.title}</h3>
                 <p className="text-muted-foreground">{feature.description}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mx-auto max-w-3xl text-center mt-16 md:mt-20 mb-12">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            Guru & Associates is into
+          </h2>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {divisions.map((division) => {
+            const Icon = division.icon;
+            return (
+              <div
+                key={division.title}
+                className="flex flex-col items-center text-center space-y-4 p-6 rounded-xl bg-card border border-border/50 hover:border-border transition-colors"
+              >
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Icon className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">{division.title}</h3>
               </div>
             );
           })}

@@ -32,10 +32,10 @@ export default function Navbar() {
         }}>
           <img 
             src="/assets/generated/business-logo.dim_512x512.png" 
-            alt="GURU & ASSOCIATES PRIVATE LIMITED" 
+            alt="GURU & ASSOCIATES SERVICES PRIVATE LIMITED" 
             className="h-10 w-10"
           />
-          <span className="text-xl font-bold tracking-tight">GURU & ASSOCIATES PRIVATE LIMITED</span>
+          <span className="text-xl font-bold tracking-tight">GURU & ASSOCIATES SERVICES PRIVATE LIMITED</span>
         </a>
 
         {/* Desktop Navigation */}

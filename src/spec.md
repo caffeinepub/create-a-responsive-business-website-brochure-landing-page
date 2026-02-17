@@ -1,11 +1,15 @@
 # Specification
 
 ## Summary
-**Goal:** Update the Services section so all service category titles and list items are in English and match the requested five categorized lists exactly.
+**Goal:** Add a new “divisions” subsection under the About section to show three business areas in boxed cards.
 
 **Planned changes:**
-- Update `frontend/src/components/sections/Services.tsx` to render exactly five service categories: Loan Consultancy Services; Other Services; Tax Consultant; Investment Advisory; Property Consultancy.
-- Replace all service list items under each category to match the requested English text exactly (including punctuation such as slashes and parentheses).
-- Ensure the Services grid consistently shows all five categories at mobile, tablet, and desktop breakpoints.
+- Update `frontend/src/components/sections/About.tsx` to add a new subsection below the existing “About Guru & Associates” content.
+- Add an English heading with the exact text: "Guru & Associates is into".
+- Add a responsive 3-card grid directly under the heading, styled consistently with the existing “Expert Guidance” feature cards.
+- Ensure the three card titles are exactly:
+  - "GURU & ASSOCIATE WEALTH CREATOR"
+  - "G.P. ASSOCIATE LEGAL ADVISOR"
+  - "GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM"
 
-**User-visible outcome:** The Services section displays five English service categories with the exact requested lists, and none of the categories disappear on different screen sizes.
+**User-visible outcome:** Visitors see a new heading and three matching boxed cards in the About section describing Guru & Associates’ divisions.

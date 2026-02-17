@@ -4,7 +4,7 @@ import { Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 'testimonial-1',
-    name: 'Pankaj Vaman Marathe',
+    name: 'Aachal Naik',
     quote: 'Working with this team has been transformative for our business. Their expertise and dedication helped us achieve results beyond our expectations.',
   },
   {
@@ -14,7 +14,7 @@ const testimonials = [
   },
   {
     id: 'testimonial-3',
-    name: 'Smita Bagali',
+    name: 'Sonal Naik',
     quote: 'From start to finish, the experience was seamless. They listened to our needs and delivered solutions that perfectly aligned with our goals.',
   },
 ];

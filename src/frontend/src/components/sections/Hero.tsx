@@ -20,7 +20,7 @@ export default function Hero() {
                 Expert Tax, Financial & Property Consulting in Goa
               </h1>
               <p className="text-lg text-muted-foreground sm:text-xl md:text-2xl max-w-[600px]">
-                GURU & ASSOCIATES PRIVATE LIMITED provides comprehensive consulting services including tax planning, financial advisory, insurance, and property solutions across Ponda and Marcel, Goa.
+                GURU & ASSOCIATES SERVICES PRIVATE LIMITED provides comprehensive consulting services including tax planning, financial advisory, insurance, and property solutions across  Marcel (office) and Ponda (Head Office), Goa.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -52,8 +52,8 @@ export default function Hero() {
           <div className="relative">
             <div className="aspect-video overflow-hidden rounded-2xl border border-border/50 shadow-2xl">
               <img
-                src="/assets/generated/mutual-funds-hero.dim_1600x900.png"
-                alt="GURU & ASSOCIATES PRIVATE LIMITED - Professional mutual funds and financial consulting services"
+                src="/assets/generated/investment-hero.dim_1600x900.png"
+                alt="GURU & ASSOCIATES SERVICES PRIVATE LIMITED - Professional investment and financial consulting services"
                 className="h-full w-full object-cover"
               />
             </div>

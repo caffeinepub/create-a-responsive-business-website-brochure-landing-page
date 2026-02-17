@@ -1,26 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
-  "summary": "New project",
+  "projectStateVersion": 3,
+  "summary": "Website/page update: add additional boxed sections under the \"About Guru & Associates\" area with a new heading and three specific box items.",
   "architectural_notes": [],
-  "known_issues": [
-    "Deployment error encountered during build/deploy sequence"
-  ],
+  "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-the-services-section-content-frontend-src-components-sections-services-tsx-to-display-the-user-provided-categorized-service-lists-in-english-using-exactly-these-categories-and-items-a-loan-consultancy-services-home-loans-mortgage-loans-commercial-loans-education-loan-business-loans-vehicle-loan-property-loan-gold-loan-personal-loan-b-other-services-pan-new-correction-passport-assistance-shop-establishment-trade-license-fire-licence-registration-foods-drugs-license-digital-signature-class-3-goa-online-services-c-tax-consultant-income-tax-returns-gst-registration-returns-e-tds-tcs-registration-returns-esic-registration-returns-epfo-registration-returns-vat-registration-returns-d-investment-advisory-life-insurance-health-insurance-vehicle-insurance-mutual-fund-elss-sip-national-pension-scheme-estate-creation-wealth-creation-tax-financial-planning-government-bond-ipo-demat-account-e-property-consultancy-sale-deed-title-search-report-property-valuation-report-mutation-partition-conversion-sanad-architect-drawing-planning-tcp-technical-clearance-plan-approved-tcp-completion-order-occupancy-certificate-panchayat-municipal-health-noc-temporary-permanent-water-electricity-connection-rera-registrations-ensure-the-services-grid-renders-all-categories-update-layout-as-needed-so-no-category-is-omitted",
-      "title": "Update the Services section content (frontend/src/components/sections/Services.tsx) to display the user-provided categorized service lists in English, using exactly these categories and items:\n\nA) Loan Consultancy Services: Home Loans; Mortgage Loans; Commercial Loans; Education Loan; Business Loans; Vehicle Loan; Property Loan; Gold Loan; Personal Loan.\n\nB) Other Services: PAN New & Correction; Passport Assistance; Shop & Establishment; Trade License; Fire Licence Registration; Foods & Drugs License; Digital Signature Class 3; Goa Online Services.\n\nC) Tax Consultant: Income Tax Returns; GST Registration/Returns; E-TDS/TCS Registration/Returns; ESIC Registration/Returns; EPFO Registration/Returns; VAT Registration/Returns.\n\nD) Investment Advisory: Life Insurance; Health Insurance; Vehicle Insurance; Mutual Fund; ELSS/SIP; National Pension Scheme; Estate Creation; Wealth Creation; Tax & Financial Planning; Government Bond; IPO & Demat Account.\n\nE) Property Consultancy: Sale Deed; Title Search Report; Property Valuation Report; Mutation/Partition Conversion; Sanad; Architect Drawing & Planning; TCP Technical Clearance (Plan Approved); TCP Completion Order; Occupancy Certificate; Panchayat & Municipal; Health NOC (Temporary & Permanent); Water & Electricity Connection; RERA Registrations.\n\nEnsure the Services grid renders all categories (update layout as needed so no category is omitted).",
+      "id": "feature-update-the-about-section-frontend-src-components-sections-about-tsx-to-include-an-additional-subsection-under-the-existing-about-guru-associates-content-add-a-separate-heading-english-reading-guru-associates-is-into-placed-above-a-3-card-grid-of-boxed-items-styled-consistently-with-the-existing-expert-guidance-feature-cards-and-ensure-the-three-boxes-display-these-exact-titles-1-guru-associate-wealth-creator-2-g-p-associate-legal-advisor-3-guru-associate-production-director-film",
+      "title": "Update the About section (frontend/src/components/sections/About.tsx) to include an additional subsection under the existing \"About Guru & Associates\" content: add a separate heading (English) reading \"Guru & Associates is into\" placed above a 3-card grid of boxed items styled consistently with the existing \"Expert Guidance\" feature cards, and ensure the three boxes display these exact titles: (1) \"GURU & ASSOCIATE WEALTH CREATOR\" (2) \"G.P. ASSOCIATE LEGAL ADVISOR\" (3) \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
       "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-services-section-content-in-frontend-src-components-sections-services-tsx-so-the-category-titles-and-every-listed-service-item-are-in-english-and-match-the-requested-categorized-lists-exactly-including-punctuation-such-as-slashes-and-parentheses-ensuring-all-five-categories-render-in-the-services-grid",
-      "title": "Update the Services section content in frontend/src/components/sections/Services.tsx so the category titles and every listed service item are in English and match the requested categorized lists exactly (including punctuation such as slashes and parentheses), ensuring all five categories render in the Services grid.",
-      "reqIds": [
-        "REQ-3"
+        "REQ-1"
       ],
       "version": 1
     }
@@ -28,20 +18,13 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Update the `name` fields in the `testimonials` array in `frontend/src/components/sections/Testimonials.tsx` so the Testimonials section displays these client names exactly: (1) Pankaj Vaman Marathe, (2) Kajal Borkar, (3) Smita Bagali. Do not change the existing testimonial `id` values or any `quote` text.",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Add/update site content to include a categorized Services list covering: Loan Consultancy Services (home, mortgage, commercial, education, business, vehicle, property, gold, personal loans), Other Services (PAN new/correction, passport assistance, shop & establishment, trade license, fire licence registration, foods & drugs license, digital signature class 3, Goa online services), Tax Consultant (income tax returns, GST reg/returns, E-TDS/TCS reg/returns, ESIC reg/returns, EPFO reg/returns, VAT reg/returns), Investment Advisory (life/health/vehicle insurance, mutual fund, ELSS/SIP, national pension scheme, estate/wealth creation, tax & financial planning, government bond, IPO & demat account), and Property Consultancy (sale deed, title search report, property valuation report, mutation/partition conversion, sanad, architect drawing & planning, TCP technical clearance/plan approved, TCP completion order, occupancy certificate, panchayat & municipal, health NOC temporary/permanent, water & electricity connection, RERA registrations).",
+      "summary": "Add a new section under \"About Guru & Associates\" with boxed items and a separate heading; include boxes for (1) Guru & Associate Wealth Creator, (2) G.P. Associate Legal Advisor, (3) Guru & Associate Production / Director / Film.",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Update testimonial client names",
+  "gameProjectType": "none",
+  "projectName": "Guru Associates Site",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-services-section-content-in-frontend-src-components-sections-services-tsx-so-the-category-titles-and-every-listed-service-item-are-in-english-and-match-the-requested-categorized-lists-exactly-including-punctuation-such-as-slashes-and-parentheses-ensuring-all-five-categories-render-in-the-services-grid",
-      "featureTitle": "Update the Services section content in frontend/src/components/sections/Services.tsx so the category titles and every listed service item are in English and match the requested categorized lists exactly (including punctuation such as slashes and parentheses), ensuring all five categories render in the Services grid.",
+      "featureId": "feature-update-the-about-section-frontend-src-components-sections-about-tsx-to-include-an-additional-subsection-under-the-existing-about-guru-associates-content-add-a-separate-heading-english-reading-guru-associates-is-into-placed-above-a-3-card-grid-of-boxed-items-styled-consistently-with-the-existing-expert-guidance-feature-cards-and-ensure-the-three-boxes-display-these-exact-titles-1-guru-associate-wealth-creator-2-g-p-associate-legal-advisor-3-guru-associate-production-director-film",
+      "featureTitle": "Update the About section (frontend/src/components/sections/About.tsx) to include an additional subsection under the existing \"About Guru & Associates\" content: add a separate heading (English) reading \"Guru & Associates is into\" placed above a 3-card grid of boxed items styled consistently with the existing \"Expert Guidance\" feature cards, and ensure the three boxes display these exact titles: (1) \"GURU & ASSOCIATE WEALTH CREATOR\" (2) \"G.P. ASSOCIATE LEGAL ADVISOR\" (3) \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
       "files": [
-        "frontend/src/components/sections/Services.tsx"
+        "frontend/src/components/sections/About.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,7 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-3"
+        "REQ-1"
       ],
       "confidence": "high"
     }

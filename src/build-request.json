@@ -1,52 +1,40 @@
 {
   "kind": "build_request",
-  "title": "Update Services section list text to match the requested English service categories",
-  "projectName": "Services Content Update",
+  "title": "Add divisions subsection with heading and boxed cards under About section",
+  "projectName": "Guru Associates Site",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-3",
-      "text": "Update the Services section content in frontend/src/components/sections/Services.tsx so the category titles and every listed service item are in English and match the requested categorized lists exactly (including punctuation such as slashes and parentheses), ensuring all five categories render in the Services grid.",
+      "id": "REQ-1",
+      "text": "Update the About section (frontend/src/components/sections/About.tsx) to include an additional subsection under the existing \"About Guru & Associates\" content: add a separate heading (English) reading \"Guru & Associates is into\" placed above a 3-card grid of boxed items styled consistently with the existing \"Expert Guidance\" feature cards, and ensure the three boxes display these exact titles: (1) \"GURU & ASSOCIATE WEALTH CREATOR\" (2) \"G.P. ASSOCIATE LEGAL ADVISOR\" (3) \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "CHANGE SERVICES SECION 1. Loan Consultancy services ... 5. PROPERTY consultancy ..."
+          "ADD MORE SECTION UNDER \"About Guru & Associates\" MAKE BOXES LIKE \"Expert Guidance\", ETC. MAKE SEPERATE HEADING GURU & ASSOCIATE IS INTO IN THOSE BOXES ADD FIRST BOX  1. GURU & ASSOCIATE WEALTH CREATOR,  SECOUND BOX 2. G.P. ASSOCIATE LEGAL ADVISOR , THIRD BOX  3. GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM"
         ]
       },
       "acceptanceCriteria": [
-        "The Services section renders exactly 5 categories: Loan Consultancy Services; Other Services; Tax Consultant; Investment Advisory; Property Consultancy.",
-        "The Loan Consultancy Services items are exactly: Home Loans; Mortgage Loans; Commercial Loans; Education Loan; Business Loans; Vehicle Loan; Property Loan; Gold Loan; Personal Loan.",
-        "The Other Services items are exactly: PAN New & Correction; Passport Assistance; Shop & Establishment; Trade License; Fire Licence Registration; Foods & Drugs License; Digital Signature Class 3; Goa Online Services.",
-        "The Tax Consultant items are exactly: Income Tax Returns; GST Registration/Returns; E-TDS/TCS Registration/Returns; ESIC Registration/Returns; EPFO Registration/Returns; VAT Registration/Returns.",
-        "The Investment Advisory items are exactly: Life Insurance; Health Insurance; Vehicle Insurance; Mutual Fund; ELSS/SIP; National Pension Scheme; Estate Creation; Wealth Creation; Tax & Financial Planning; Government Bond; IPO & Demat Account.",
-        "The Property Consultancy items are exactly: Sale Deed; Title Search Report; Property Valuation Report; Mutation/Partition Conversion; Sanad; Architect Drawing & Planning; TCP Technical Clearance (Plan Approved); TCP Completion Order; Occupancy Certificate; Panchayat & Municipal; Health NOC (Temporary & Permanent); Water & Electricity Connection; RERA Registrations.",
-        "No category is omitted at any responsive breakpoint (mobile/tablet/desktop)."
+        "The About section shows a new subsection heading with the exact English text: \"Guru & Associates is into\".",
+        "Directly below that heading, there is a responsive 3-column (desktop) grid of three boxed cards.",
+        "Each card displays the exact titles: \"GURU & ASSOCIATE WEALTH CREATOR\", \"G.P. ASSOCIATE LEGAL ADVISOR\", and \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
+        "The three new boxes use the same visual card treatment as the existing feature cards (boxed layout with border/rounded corners/consistent spacing and hover behavior)."
       ]
     }
   ],
   "constraints": [
     "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "Keep all backend logic (if any is added later) in a single Motoko actor in backend/main.mo; do not add additional backend services."
+    "Do not add backend functionality; this is a static content/layout change in the About section only."
   ],
   "nonGoals": [
-    "Adding new service categories beyond the five requested.",
-    "Changing unrelated page sections (Hero, About, Testimonials, Photos, Contact, Footer) or adding new backend features."
+    "Do not add new pages or routes.",
+    "Do not implement any backend storage or APIs for the About section content.",
+    "Do not change the existing feature-card titles (e.g., \"Expert Guidance\") unless required for layout consistency."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

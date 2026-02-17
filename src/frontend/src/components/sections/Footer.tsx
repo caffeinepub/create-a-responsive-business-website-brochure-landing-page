@@ -22,10 +22,10 @@ export default function Footer() {
             <div className="flex items-center space-x-3">
               <img 
                 src="/assets/generated/business-logo.dim_512x512.png" 
-                alt="GURU & ASSOCIATES PRIVATE LIMITED" 
+                alt="GURU & ASSOCIATES SERVICES PRIVATE LIMITED" 
                 className="h-10 w-10"
               />
-              <span className="text-xl font-bold">GURU & ASSOCIATES PRIVATE LIMITED</span>
+              <span className="text-xl font-bold">GURU & ASSOCIATES SERVICES PRIVATE LIMITED</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs">
               Expert tax, financial, and property consulting services in Goa.
@@ -132,7 +132,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© {currentYear} GURU & ASSOCIATES PRIVATE LIMITED. All rights reserved.</p>
+          <p>© {currentYear} GURU & ASSOCIATES SERVICES PRIVATE LIMITED. All rights reserved.</p>
           <p className="flex items-center gap-1">
             Built with <Heart className="h-4 w-4 text-red-500 fill-red-500" /> using{' '}
             <a
