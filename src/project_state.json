@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Website/page update: add additional boxed sections under the \"About Guru & Associates\" area with a new heading and three specific box items.",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-the-about-section-frontend-src-components-sections-about-tsx-to-include-an-additional-subsection-under-the-existing-about-guru-associates-content-add-a-separate-heading-english-reading-guru-associates-is-into-placed-above-a-3-card-grid-of-boxed-items-styled-consistently-with-the-existing-expert-guidance-feature-cards-and-ensure-the-three-boxes-display-these-exact-titles-1-guru-associate-wealth-creator-2-g-p-associate-legal-advisor-3-guru-associate-production-director-film",
-      "title": "Update the About section (frontend/src/components/sections/About.tsx) to include an additional subsection under the existing \"About Guru & Associates\" content: add a separate heading (English) reading \"Guru & Associates is into\" placed above a 3-card grid of boxed items styled consistently with the existing \"Expert Guidance\" feature cards, and ensure the three boxes display these exact titles: (1) \"GURU & ASSOCIATE WEALTH CREATOR\" (2) \"G.P. ASSOCIATE LEGAL ADVISOR\" (3) \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
+      "id": "feature-add-a-clickable-facebook-link-to-the-footer-social-links-section-that-opens-https-www-facebook-com-share-1brq3uhjdk-in-a-new-tab",
+      "title": "Add a clickable Facebook link to the Footer social links section that opens https://www.facebook.com/share/1BrQ3UHjDK/ in a new tab",
       "reqIds": [
         "REQ-1"
       ],
@@ -18,13 +18,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add a new section under \"About Guru & Associates\" with boxed items and a separate heading; include boxes for (1) Guru & Associate Wealth Creator, (2) G.P. Associate Legal Advisor, (3) Guru & Associate Production / Director / Film.",
+      "summary": "Connect Facebook account to website",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Guru Associates Site",
+  "projectName": "LSM Consulting",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

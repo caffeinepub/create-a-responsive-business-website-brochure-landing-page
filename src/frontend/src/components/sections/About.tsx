@@ -21,15 +21,15 @@ const features = [
 const divisions = [
   {
     icon: Briefcase,
-    title: 'GURU & ASSOCIATE WEALTH CREATOR',
+    title: 'GURU & ASSOCIATE (WEALTH CREATOR)',
   },
   {
     icon: Scale,
-    title: 'G.P. ASSOCIATE LEGAL ADVISOR',
+    title: 'G.P. ASSOCIATE LEGAL FIRM',
   },
   {
     icon: Film,
-    title: 'GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM',
+    title: 'GURU & ASSOCIATE PRODUCTION ( DIGIAL MARKETING,  ADVERTISEMENT , ENTERTAINMENT & FILM )',
   },
 ];
 

@@ -1,22 +1,22 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add \"Guru & Associates is into\" divisions subsection to About section",
+  "title": "Add Facebook page integration",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add a new \"Guru & Associates is into\" heading and a 3-card boxed grid under the existing About content, matching the existing feature-card styling and using the exact provided titles.",
+      "summary": "Add clickable Facebook link to Footer social links section",
       "acceptanceCriteria": [
-        "The About section shows a new subsection heading with the exact English text: \"Guru & Associates is into\".",
-        "Directly below that heading, there is a responsive 3-column (desktop) grid of three boxed cards.",
-        "Each card displays the exact titles: \"GURU & ASSOCIATE WEALTH CREATOR\", \"G.P. ASSOCIATE LEGAL ADVISOR\", and \"GURU & ASSOCIATE PRODUCTION , DIRECTOR , FILM\".",
-        "The three new boxes use the same visual card treatment as the existing feature cards (boxed layout with border/rounded corners/consistent spacing and hover behavior)."
+        "Facebook icon appears in the Footer social links alongside existing social icons",
+        "Clicking the Facebook icon opens https://www.facebook.com/share/1BrQ3UHjDK/ in a new browser tab",
+        "The link uses appropriate accessible attributes (aria-label, rel=\"noopener noreferrer\")",
+        "Visual style matches existing social link icons in the Footer"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/About.tsx",
+          "path": "frontend/src/components/sections/Footer.tsx",
           "operation": "modify",
-          "description": "Within the About section, insert a new subsection below the existing \"About Guru & Associates\" content: add an English heading with exact text \"Guru & Associates is into\" and render the three division items as a responsive 3-card grid. Reuse the same card container classes and hover/border/spacing treatment used by the existing feature cards (e.g., the \"Expert Guidance\" cards) so the new boxes are visually consistent, and ensure the card titles exactly match the required strings."
+          "description": "Add a Facebook link to the social links section that opens https://www.facebook.com/share/1BrQ3UHjDK/ in a new tab. Use the same icon library and styling pattern as existing social links (LinkedIn, Twitter, Instagram). Include aria-label=\"Visit our Facebook page\" and rel=\"noopener noreferrer\" for accessibility and security. Match the visual style of existing social icons including size, spacing, and hover effects."
         }
       ]
     }

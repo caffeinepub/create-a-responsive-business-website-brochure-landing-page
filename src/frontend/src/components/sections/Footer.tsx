@@ -2,7 +2,7 @@ import { SiFacebook, SiX, SiLinkedin, SiInstagram } from 'react-icons/si';
 import { Heart } from 'lucide-react';
 
 const socialLinks = [
-  { icon: SiFacebook, href: 'https://facebook.com', label: 'Facebook' },
+  { icon: SiFacebook, href: 'https://www.facebook.com/share/1BrQ3UHjDK/', label: 'Visit our Facebook page' },
   { icon: SiX, href: 'https://x.com', label: 'X (Twitter)' },
   { icon: SiLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
   { icon: SiInstagram, href: 'https://instagram.com', label: 'Instagram' },

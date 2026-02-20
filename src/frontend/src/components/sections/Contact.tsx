@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import ContactForm from '../contact/ContactForm';
+import OfficeLocationsMap from '../contact/OfficeLocationsMap';
 
 const offices = [
   {
@@ -30,6 +31,7 @@ export default function Contact() {
         </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Office Information */}
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-semibold mb-6">Our Offices</h3>
@@ -43,7 +45,14 @@ export default function Contact() {
                     
                     <div className="flex items-start space-x-3">
                       <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-muted-foreground">{office.address}</p>
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded underline decoration-muted-foreground/30 hover:decoration-foreground/50"
+                      >
+                        {office.address}
+                      </a>
                     </div>
 
                     {office.phones.length > 0 && (
@@ -75,11 +84,24 @@ export default function Contact() {
                 ))}
               </div>
             </div>
+
+            {/* Map - shown below offices on mobile, in left column on desktop */}
+            <div className="lg:hidden">
+              <OfficeLocationsMap />
+            </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
-            <ContactForm />
+          {/* Contact Form */}
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
+              <ContactForm />
+            </div>
+
+            {/* Map - shown in right column on desktop */}
+            <div className="hidden lg:block">
+              <OfficeLocationsMap />
+            </div>
           </div>
         </div>
       </div>
