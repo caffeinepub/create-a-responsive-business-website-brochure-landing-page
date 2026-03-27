@@ -15,35 +15,67 @@ const FILMS_QUERY_KEY = "backend-films";
 export function useFilms() {
   const { actor, isFetching } = useActor();
   const queryClient = useQueryClient();
-  // Cast to any to access film methods not yet in auto-generated types
   const a = actor as any;
+
+  // Access internal Backend helpers
+  const uploadFile: ((file: ExternalBlob) => Promise<Uint8Array>) | undefined =
+    a
+      ? (a._uploadFile?.bind(a) as (file: ExternalBlob) => Promise<Uint8Array>)
+      : undefined;
+  const downloadFile:
+    | ((hash: Uint8Array) => Promise<ExternalBlob>)
+    | undefined = a
+    ? (a._downloadFile?.bind(a) as (hash: Uint8Array) => Promise<ExternalBlob>)
+    : undefined;
+
+  // Raw IC actor for methods not in the generated Backend class
+  const rawActor = a ? a.actor : undefined;
 
   const filmsQuery = useQuery<FilmEntry[]>({
     queryKey: [FILMS_QUERY_KEY],
     queryFn: async () => {
-      if (!a) return [];
-      const results: Array<[string, any]> = await a.getFilms();
-      return results.map(([id, data]) => ({
-        id,
-        name: data.name as string,
-        releaseDate: data.releaseDate as string,
-        posterUrl: data.poster[0]
-          ? (data.poster[0] as any).getDirectURL()
-          : null,
-      }));
+      if (!rawActor || !downloadFile) return [];
+      const results: Array<[string, any]> = await rawActor.getFilms();
+      const entries = await Promise.all(
+        results.map(async ([id, data]) => {
+          let posterUrl: string | null = null;
+          if (data.poster && data.poster.length > 0) {
+            const hash = data.poster[0] as Uint8Array;
+            try {
+              const eb = await downloadFile(hash);
+              posterUrl = eb.getDirectURL();
+            } catch {
+              posterUrl = null;
+            }
+          }
+          return {
+            id,
+            name: data.name as string,
+            releaseDate: data.releaseDate as string,
+            posterUrl,
+          };
+        }),
+      );
+      return entries;
     },
-    enabled: !!actor && !isFetching,
+    enabled: !!actor && !isFetching && !!downloadFile,
   });
 
   // Seed default UMESH film if no films exist
   useEffect(() => {
-    if (!a || isFetching) return;
+    if (!rawActor || isFetching) return;
     if (filmsQuery.isSuccess && filmsQuery.data.length === 0) {
-      a.addFilm("umesh", "UMESH", "11 April 2026").then(() => {
+      rawActor.addFilm("umesh", "UMESH", "11 April 2026").then(() => {
         queryClient.invalidateQueries({ queryKey: [FILMS_QUERY_KEY] });
       });
     }
-  }, [a, isFetching, filmsQuery.isSuccess, filmsQuery.data, queryClient]);
+  }, [
+    rawActor,
+    isFetching,
+    filmsQuery.isSuccess,
+    filmsQuery.data,
+    queryClient,
+  ]);
 
   const addFilmMutation = useMutation({
     mutationFn: async ({
@@ -55,8 +87,8 @@ export function useFilms() {
       name: string;
       releaseDate: string;
     }) => {
-      if (!a) throw new Error("Not connected");
-      const success: boolean = await a.addFilm(id, name, releaseDate);
+      if (!rawActor) throw new Error("Not connected");
+      const success: boolean = await rawActor.addFilm(id, name, releaseDate);
       if (!success) throw new Error("Failed to add film");
     },
     onSuccess: () => {
@@ -66,8 +98,8 @@ export function useFilms() {
 
   const removeFilmMutation = useMutation({
     mutationFn: async (id: string) => {
-      if (!a) throw new Error("Not connected");
-      await a.removeFilm(id);
+      if (!rawActor) throw new Error("Not connected");
+      await rawActor.removeFilm(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [FILMS_QUERY_KEY] });
@@ -84,12 +116,15 @@ export function useFilms() {
       file: File;
       onProgress?: (pct: number) => void;
     }) => {
-      if (!a) throw new Error("Not connected");
+      if (!rawActor || !uploadFile) throw new Error("Not connected");
       const bytes = new Uint8Array(await file.arrayBuffer());
-      const blob = ExternalBlob.fromBytes(bytes).withUploadProgress(
+      const eb = ExternalBlob.fromBytes(bytes).withUploadProgress(
         onProgress || (() => {}),
       );
-      const success: boolean = await a.updateFilmPoster(filmId, blob);
+      // Upload to blob storage, get hash back
+      const hash = await uploadFile(eb);
+      // Pass hash (Uint8Array) to the raw actor
+      const success: boolean = await rawActor.updateFilmPoster(filmId, hash);
       if (!success) throw new Error("Failed to update film poster");
       return filmId;
     },
