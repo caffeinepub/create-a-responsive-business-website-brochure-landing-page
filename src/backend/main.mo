@@ -7,21 +7,21 @@ import AccessControl "authorization/access-control";
 actor {
   include MixinStorage();
 
-  // Preserved stable vars from previous version to maintain upgrade compatibility
   stable let accessControlState : AccessControl.AccessControlState = AccessControl.initState();
 
   public type UserProfile = {
     name : Text;
   };
 
-  stable let userProfiles = Map.empty<Principal, UserProfile>();
+  stable var userProfiles : Map.Map<Principal, UserProfile> = Map.empty();
 
-  type PhotoData = {
+  public type PhotoData = {
     blob : Storage.ExternalBlob;
     name : Text;
   };
 
-  let photos = Map.empty<Text, PhotoData>();
+  // Stable storage - photos survive canister upgrades
+  stable var photos : Map.Map<Text, PhotoData> = Map.empty();
 
   public shared func addPhoto(id : Text, blob : Storage.ExternalBlob, name : Text) : async Bool {
     let photo : PhotoData = { blob; name };
@@ -41,5 +41,17 @@ actor {
 
   public shared func clearPhotos() : async () {
     photos.clear();
+  };
+
+  public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
+    userProfiles.get(caller);
+  };
+
+  public query ({ caller }) func getUserProfile(user : Principal) : async ?UserProfile {
+    userProfiles.get(user);
+  };
+
+  public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
+    userProfiles.add(caller, profile);
   };
 };

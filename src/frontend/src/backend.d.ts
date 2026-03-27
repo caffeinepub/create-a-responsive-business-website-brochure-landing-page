@@ -1,3 +1,12 @@
+import type { Principal } from "@icp-sdk/core/principal";
+export interface Some<T> {
+    __kind__: "Some";
+    value: T;
+}
+export interface None {
+    __kind__: "None";
+}
+export type Option<T> = Some<T> | None;
 export class ExternalBlob {
     getBytes(): Promise<Uint8Array<ArrayBuffer>>;
     getDirectURL(): string;
@@ -9,9 +18,23 @@ export interface PhotoData {
     blob: ExternalBlob;
     name: string;
 }
+export interface UserProfile {
+    name: string;
+}
+export enum UserRole {
+    admin = "admin",
+    user = "user",
+    guest = "guest"
+}
 export interface backendInterface {
     addPhoto(id: string, blob: ExternalBlob, name: string): Promise<boolean>;
-    removePhoto(id: string): Promise<boolean>;
-    getPhotos(): Promise<Array<[string, PhotoData]>>;
+    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     clearPhotos(): Promise<void>;
+    getCallerUserProfile(): Promise<UserProfile | null>;
+    getCallerUserRole(): Promise<UserRole>;
+    getPhotos(): Promise<Array<[string, PhotoData]>>;
+    getUserProfile(user: Principal): Promise<UserProfile | null>;
+    isCallerAdmin(): Promise<boolean>;
+    removePhoto(id: string): Promise<boolean>;
+    saveCallerUserProfile(profile: UserProfile): Promise<void>;
 }

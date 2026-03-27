@@ -149,8 +149,12 @@ export default function Photos() {
         });
         setUploadProgress(null);
         setUploadingFileName(null);
-      } catch (_err) {
-        errors.push(`${file.name}: Failed to upload photo.`);
+      } catch (err) {
+        errors.push(
+          `${file.name}: ${
+            err instanceof Error ? err.message : "Failed to upload photo."
+          }`,
+        );
         setUploadProgress(null);
         setUploadingFileName(null);
       }
@@ -164,8 +168,10 @@ export default function Photos() {
     setValidationError(null);
     try {
       await removePhoto(id);
-    } catch (_err) {
-      setValidationError("Failed to remove photo.");
+    } catch (err) {
+      setValidationError(
+        err instanceof Error ? err.message : "Failed to remove photo.",
+      );
     }
   };
 
@@ -173,8 +179,10 @@ export default function Photos() {
     setValidationError(null);
     try {
       await clearAll();
-    } catch (_err) {
-      setValidationError("Failed to clear photos.");
+    } catch (err) {
+      setValidationError(
+        err instanceof Error ? err.message : "Failed to clear photos.",
+      );
     }
   };
 
@@ -205,8 +213,13 @@ export default function Photos() {
     (p) => !hiddenStaticIds.includes(p.id),
   );
 
-  const displayError =
-    validationError || (blobError ? String(blobError) : null);
+  const blobErrorMessage = blobError
+    ? blobError instanceof Error
+      ? blobError.message
+      : String(blobError)
+    : null;
+
+  const displayError = validationError || blobErrorMessage;
   const totalCount = visibleStaticPhotos.length + photos.length;
   const isProcessing = isUploading || uploadProgress !== null;
 
@@ -287,10 +300,12 @@ export default function Photos() {
               variant="destructive"
               className="mb-6"
               role="alert"
-              aria-live="polite"
+              aria-live="assertive"
               data-ocid="photos.error_state"
             >
-              <AlertDescription>{displayError}</AlertDescription>
+              <AlertDescription className="whitespace-pre-wrap break-words">
+                {displayError}
+              </AlertDescription>
             </Alert>
           )}
 
@@ -312,7 +327,10 @@ export default function Photos() {
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8">
               <div className="flex gap-3 flex-wrap justify-center sm:justify-start">
                 <Button
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() => {
+                    setValidationError(null);
+                    fileInputRef.current?.click();
+                  }}
                   disabled={isProcessing}
                   className="gap-2"
                   data-ocid="photos.upload_button"
