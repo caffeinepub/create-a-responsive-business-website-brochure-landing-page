@@ -43,6 +43,42 @@ actor {
     photos.clear();
   };
 
+  public type FilmData = {
+    name : Text;
+    releaseDate : Text;
+    poster : ?Storage.ExternalBlob;
+  };
+
+  // Stable storage - films survive canister upgrades
+  stable var films : Map.Map<Text, FilmData> = Map.empty();
+
+  public shared func addFilm(id : Text, name : Text, releaseDate : Text) : async Bool {
+    let film : FilmData = { name; releaseDate; poster = null };
+    films.add(id, film);
+    true;
+  };
+
+  public shared func removeFilm(id : Text) : async Bool {
+    let contains = films.containsKey(id);
+    films.remove(id);
+    contains;
+  };
+
+  public query func getFilms() : async [(Text, FilmData)] {
+    films.toArray();
+  };
+
+  public shared func updateFilmPoster(id : Text, blob : Storage.ExternalBlob) : async Bool {
+    switch (films.get(id)) {
+      case (?film) {
+        let updated : FilmData = { name = film.name; releaseDate = film.releaseDate; poster = ?blob };
+        films.add(id, updated);
+        true;
+      };
+      case null { false };
+    };
+  };
+
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
     userProfiles.get(caller);
   };

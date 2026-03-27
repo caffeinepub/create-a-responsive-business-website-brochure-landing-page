@@ -12,6 +12,7 @@ import type { Principal } from '@icp-sdk/core/principal';
 
 export type ExternalBlob = Uint8Array;
 export interface PhotoData { 'blob' : ExternalBlob, 'name' : string }
+export interface FilmData { 'name' : string, 'releaseDate' : string, 'poster' : [] | [ExternalBlob] }
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
@@ -45,15 +46,19 @@ export interface _SERVICE {
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addPhoto' : ActorMethod<[string, ExternalBlob, string], boolean>,
+  'addFilm' : ActorMethod<[string, string, string], boolean>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'clearPhotos' : ActorMethod<[], undefined>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getFilms' : ActorMethod<[], Array<[string, FilmData]>>,
   'getPhotos' : ActorMethod<[], Array<[string, PhotoData]>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
+  'removeFilm' : ActorMethod<[string], boolean>,
   'removePhoto' : ActorMethod<[string], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'updateFilmPoster' : ActorMethod<[string, ExternalBlob], boolean>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

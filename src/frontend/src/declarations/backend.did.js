@@ -30,6 +30,11 @@ export const PhotoData = IDL.Record({
   'blob' : ExternalBlob,
   'name' : IDL.Text,
 });
+export const FilmData = IDL.Record({
+  'name' : IDL.Text,
+  'releaseDate' : IDL.Text,
+  'poster' : IDL.Opt(ExternalBlob),
+});
 
 export const idlService = IDL.Service({
   '_caffeineStorageBlobIsLive' : IDL.Func(
@@ -59,11 +64,17 @@ export const idlService = IDL.Service({
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addFilm' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [IDL.Bool], []),
   'addPhoto' : IDL.Func([IDL.Text, ExternalBlob, IDL.Text], [IDL.Bool], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'clearPhotos' : IDL.Func([], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getFilms' : IDL.Func(
+      [],
+      [IDL.Vec(IDL.Tuple(IDL.Text, FilmData))],
+      ['query'],
+    ),
   'getPhotos' : IDL.Func(
       [],
       [IDL.Vec(IDL.Tuple(IDL.Text, PhotoData))],
@@ -75,8 +86,10 @@ export const idlService = IDL.Service({
       ['query'],
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'removeFilm' : IDL.Func([IDL.Text], [IDL.Bool], []),
   'removePhoto' : IDL.Func([IDL.Text], [IDL.Bool], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'updateFilmPoster' : IDL.Func([IDL.Text, ExternalBlob], [IDL.Bool], []),
 });
 
 export const idlInitArgs = [];
@@ -101,7 +114,12 @@ export const idlFactory = ({ IDL }) => {
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const PhotoData = IDL.Record({ 'blob' : ExternalBlob, 'name' : IDL.Text });
-  
+  const FilmData = IDL.Record({
+    'name' : IDL.Text,
+    'releaseDate' : IDL.Text,
+    'poster' : IDL.Opt(ExternalBlob),
+  });
+
   return IDL.Service({
     '_caffeineStorageBlobIsLive' : IDL.Func(
         [IDL.Vec(IDL.Nat8)],
@@ -130,11 +148,17 @@ export const idlFactory = ({ IDL }) => {
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addFilm' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [IDL.Bool], []),
     'addPhoto' : IDL.Func([IDL.Text, ExternalBlob, IDL.Text], [IDL.Bool], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'clearPhotos' : IDL.Func([], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getFilms' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Tuple(IDL.Text, FilmData))],
+        ['query'],
+      ),
     'getPhotos' : IDL.Func(
         [],
         [IDL.Vec(IDL.Tuple(IDL.Text, PhotoData))],
@@ -146,8 +170,10 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'removeFilm' : IDL.Func([IDL.Text], [IDL.Bool], []),
     'removePhoto' : IDL.Func([IDL.Text], [IDL.Bool], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'updateFilmPoster' : IDL.Func([IDL.Text, ExternalBlob], [IDL.Bool], []),
   });
 };
 

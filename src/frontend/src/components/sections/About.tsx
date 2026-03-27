@@ -2,6 +2,7 @@ import {
   Briefcase,
   Camera,
   Film,
+  Loader2,
   Lock,
   Plus,
   Scale,
@@ -14,41 +15,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useRef, useState } from "react";
-
-const FILMS_STORAGE_KEY = "guru_films_list";
-
-type FilmEntry = {
-  id: string;
-  name: string;
-  releaseDate: string;
-  posterUrl: string | null;
-};
-
-function getSavedFilms(): FilmEntry[] {
-  try {
-    const raw = localStorage.getItem(FILMS_STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch {
-    // ignore
-  }
-  // Default: UMESH
-  return [
-    {
-      id: "umesh",
-      name: "UMESH",
-      releaseDate: "11 April 2026",
-      posterUrl: localStorage.getItem("guru_film_poster_umesh") ?? null,
-    },
-  ];
-}
-
-function saveFilms(films: FilmEntry[]) {
-  try {
-    localStorage.setItem(FILMS_STORAGE_KEY, JSON.stringify(films));
-  } catch {
-    // ignore
-  }
-}
+import { useFilms } from "../../hooks/useFilms";
 
 const features = [
   {
@@ -72,8 +39,16 @@ const features = [
 ];
 
 export default function About() {
+  const {
+    films,
+    isLoading,
+    addFilm,
+    removeFilm,
+    updateFilmPoster,
+    uploadingFilmId,
+  } = useFilms();
+
   const [showModal, setShowModal] = useState(false);
-  const [films, setFilms] = useState<FilmEntry[]>(getSavedFilms);
   const [selectedFilmId, setSelectedFilmId] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [newName, setNewName] = useState("");
@@ -99,27 +74,12 @@ export default function About() {
     setFilmPasswordError(false);
   }
 
-  function updateFilms(updated: FilmEntry[]) {
-    setFilms(updated);
-    saveFilms(updated);
-  }
-
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     const targetId = activeUploadId.current;
     if (!file || !targetId) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const dataUrl = ev.target?.result as string;
-      if (dataUrl) {
-        const updated = films.map((f) =>
-          f.id === targetId ? { ...f, posterUrl: dataUrl } : f,
-        );
-        updateFilms(updated);
-      }
-    };
-    reader.readAsDataURL(file);
     e.target.value = "";
+    await updateFilmPoster({ filmId: targetId, file });
   }
 
   function triggerUpload(filmId: string) {
@@ -127,24 +87,21 @@ export default function About() {
     fileInputRef.current?.click();
   }
 
-  function addFilm() {
+  async function handleAddFilm() {
     if (!newName.trim()) return;
-    const entry: FilmEntry = {
-      id: Date.now().toString(),
+    const id = `film-${Date.now()}`;
+    await addFilm({
+      id,
       name: newName.trim().toUpperCase(),
       releaseDate: newDate.trim(),
-      posterUrl: null,
-    };
-    const updated = [...films, entry];
-    updateFilms(updated);
+    });
     setNewName("");
     setNewDate("");
     setIsAdding(false);
   }
 
-  function deleteFilm(filmId: string) {
-    const updated = films.filter((f) => f.id !== filmId);
-    updateFilms(updated);
+  async function handleDeleteFilm(filmId: string) {
+    await removeFilm(filmId);
     if (selectedFilmId === filmId) setSelectedFilmId(null);
   }
 
@@ -366,8 +323,15 @@ export default function About() {
 
             {/* Body */}
             <div className="overflow-y-auto flex-1 px-6 py-6">
-              {/* Film Detail View */}
-              {selectedFilm ? (
+              {isLoading ? (
+                <div
+                  className="flex items-center justify-center py-12"
+                  data-ocid="film_list.loading_state"
+                >
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                </div>
+              ) : selectedFilm ? (
+                /* Film Detail View */
                 <div className="flex flex-col items-center text-center space-y-6">
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
                     <span className="text-xs font-bold text-primary uppercase tracking-widest">
@@ -389,7 +353,17 @@ export default function About() {
                     </p>
                   )}
                   <div className="w-full">
-                    {selectedFilm.posterUrl ? (
+                    {uploadingFilmId === selectedFilm.id ? (
+                      <div
+                        className="w-full flex flex-col items-center justify-center gap-4 py-12 px-6 rounded-xl border-2 border-dashed border-primary/40 bg-primary/5"
+                        data-ocid="film_poster.loading_state"
+                      >
+                        <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                        <p className="text-sm text-primary font-semibold">
+                          Uploading poster...
+                        </p>
+                      </div>
+                    ) : selectedFilm.posterUrl ? (
                       <div className="relative group inline-block w-full">
                         <img
                           src={selectedFilm.posterUrl}
@@ -454,16 +428,20 @@ export default function About() {
                   </div>
 
                   {films.length === 0 && (
-                    <p className="text-muted-foreground text-center py-6">
+                    <p
+                      className="text-muted-foreground text-center py-6"
+                      data-ocid="film_list.empty_state"
+                    >
                       No films added yet.
                     </p>
                   )}
 
                   <div className="grid gap-4 sm:grid-cols-2">
-                    {films.map((film) => (
+                    {films.map((film, idx) => (
                       <div
                         key={film.id}
                         className="relative rounded-xl border border-border bg-card overflow-hidden group"
+                        data-ocid={`film_list.item.${idx + 1}`}
                       >
                         {/* Poster thumbnail */}
                         <button
@@ -471,7 +449,14 @@ export default function About() {
                           onClick={() => setSelectedFilmId(film.id)}
                           className="w-full text-left"
                         >
-                          {film.posterUrl ? (
+                          {uploadingFilmId === film.id ? (
+                            <div className="w-full h-48 bg-primary/5 flex flex-col items-center justify-center gap-2">
+                              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                              <span className="text-xs text-primary">
+                                Uploading...
+                              </span>
+                            </div>
+                          ) : film.posterUrl ? (
                             <img
                               src={film.posterUrl}
                               alt={film.name}
@@ -503,7 +488,7 @@ export default function About() {
                         {isFilmAdmin && (
                           <button
                             type="button"
-                            onClick={() => deleteFilm(film.id)}
+                            onClick={() => handleDeleteFilm(film.id)}
                             className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-black/50 hover:bg-red-600 text-white transition-colors"
                             title="Delete film"
                             data-ocid="film_list.delete_button"
@@ -537,7 +522,7 @@ export default function About() {
                         <div className="flex gap-2">
                           <button
                             type="button"
-                            onClick={addFilm}
+                            onClick={handleAddFilm}
                             disabled={!newName.trim()}
                             className="flex-1 rounded-lg bg-primary text-white text-sm font-semibold py-2 hover:bg-primary/90 disabled:opacity-50 transition-colors"
                             data-ocid="film_add.submit_button"
