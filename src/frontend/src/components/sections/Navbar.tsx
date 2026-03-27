@@ -31,7 +31,7 @@ export default function Navbar() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <img
-            src="/assets/generated/business-logo.dim_512x512.png"
+            src="/assets/GRLOGO-1.jpg"
             alt="GURU & ASSOCIATES SERVICES PRIVATE LIMITED"
             className="h-14 w-14 object-contain"
           />
