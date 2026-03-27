@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { type PhotoItem, usePersistedPhotos } from "@/hooks/usePersistedPhotos";
-import { Trash2, Upload, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { useBlobPhotos } from "@/hooks/useBlobPhotos";
+import { Lock, LogOut, Trash2, Upload, X } from "lucide-react";
 import { useRef, useState } from "react";
 
 const ACCEPTED_IMAGE_TYPES = [
@@ -23,6 +25,7 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const ADMIN_PASSWORD = "guru2024";
 
 const STATIC_PHOTOS = [
   {
@@ -32,103 +35,94 @@ const STATIC_PHOTOS = [
   },
   {
     id: "static-2",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.44.57 AM-1.jpeg",
+    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.16 AM.jpeg",
     name: "Photo 2",
   },
   {
     id: "static-3",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.16 AM.jpeg",
+    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.19 AM.jpeg",
     name: "Photo 3",
   },
   {
     id: "static-4",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.16 AM-1.jpeg",
+    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.21 AM.jpeg",
     name: "Photo 4",
   },
   {
     id: "static-5",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.19 AM.jpeg",
+    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.16 AM.jpeg",
     name: "Photo 5",
   },
   {
     id: "static-6",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.19 AM-1.jpeg",
+    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.17 AM.jpeg",
     name: "Photo 6",
   },
   {
     id: "static-7",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.21 AM.jpeg",
+    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.19 AM.jpeg",
     name: "Photo 7",
   },
   {
     id: "static-8",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.45.21 AM-1.jpeg",
+    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.20 AM.jpeg",
     name: "Photo 8",
   },
-  {
-    id: "static-9",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.16 AM.jpeg",
-    name: "Photo 9",
-  },
-  {
-    id: "static-10",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.16 AM-1.jpeg",
-    name: "Photo 10",
-  },
-  {
-    id: "static-11",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.17 AM.jpeg",
-    name: "Photo 11",
-  },
-  {
-    id: "static-12",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.17 AM-1.jpeg",
-    name: "Photo 12",
-  },
-  {
-    id: "static-13",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.19 AM.jpeg",
-    name: "Photo 13",
-  },
-  {
-    id: "static-14",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.19 AM-1.jpeg",
-    name: "Photo 14",
-  },
-  {
-    id: "static-15",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.20 AM.jpeg",
-    name: "Photo 15",
-  },
-  {
-    id: "static-16",
-    src: "/assets/WhatsApp Image 2026-02-14 at 10.46.20 AM-1.jpeg",
-    name: "Photo 16",
-  },
 ];
+
+function getHiddenStaticIds(): string[] {
+  try {
+    const stored = localStorage.getItem("guru_hidden_static_photos");
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHiddenStaticIds(ids: string[]) {
+  try {
+    localStorage.setItem("guru_hidden_static_photos", JSON.stringify(ids));
+  } catch {
+    // ignore
+  }
+}
+
+function getAdminSession(): boolean {
+  return sessionStorage.getItem("guru_admin") === "true";
+}
 
 export default function Photos() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [uploadingFileName, setUploadingFileName] = useState<string | null>(
+    null,
+  );
+
+  // Admin state
+  const [isAdmin, setIsAdmin] = useState(getAdminSession);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [loginError, setLoginError] = useState("");
+
+  // Hidden static photos
+  const [hiddenStaticIds, setHiddenStaticIds] =
+    useState<string[]>(getHiddenStaticIds);
 
   const {
     photos,
-    addPhotos,
+    addPhoto,
     removePhoto,
     clearAll,
-    error: storageError,
-    clearError,
-  } = usePersistedPhotos();
+    isUploading,
+    error: blobError,
+  } = useBlobPhotos();
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
     setValidationError(null);
-    setIsProcessing(true);
-
-    const newPhotos: PhotoItem[] = [];
     const errors: string[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -147,62 +141,146 @@ export default function Photos() {
       }
 
       try {
-        const dataUrl = await fileToDataUrl(file);
-        newPhotos.push({
-          id: `${Date.now()}-${i}-${Math.random().toString(36).substr(2, 9)}`,
-          dataUrl,
-          name: file.name,
-          size: file.size,
-          type: file.type,
+        setUploadingFileName(file.name);
+        setUploadProgress(0);
+        await addPhoto({
+          file,
+          onProgress: (pct) => setUploadProgress(pct),
         });
+        setUploadProgress(null);
+        setUploadingFileName(null);
       } catch (_err) {
-        errors.push(`${file.name}: Failed to process file.`);
+        errors.push(`${file.name}: Failed to upload photo.`);
+        setUploadProgress(null);
+        setUploadingFileName(null);
       }
     }
 
     if (errors.length > 0) setValidationError(errors.join(" "));
-    if (newPhotos.length > 0) {
-      const success = addPhotos(newPhotos);
-      if (!success && !storageError)
-        setValidationError("Failed to save photos. Storage may be full.");
-    }
-
-    setIsProcessing(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const fileToDataUrl = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-
-  const handleRemove = (id: string) => {
-    removePhoto(id);
+  const handleRemove = async (id: string) => {
     setValidationError(null);
-    clearError();
+    try {
+      await removePhoto(id);
+    } catch (_err) {
+      setValidationError("Failed to remove photo.");
+    }
   };
 
-  const handleClearAll = () => {
-    clearAll();
+  const handleClearAll = async () => {
     setValidationError(null);
-    clearError();
+    try {
+      await clearAll();
+    } catch (_err) {
+      setValidationError("Failed to clear photos.");
+    }
   };
 
-  const displayError = validationError || storageError;
+  const handleRemoveStatic = (id: string) => {
+    const updated = [...hiddenStaticIds, id];
+    setHiddenStaticIds(updated);
+    saveHiddenStaticIds(updated);
+  };
+
+  const handleAdminLogin = () => {
+    if (passwordInput === ADMIN_PASSWORD) {
+      sessionStorage.setItem("guru_admin", "true");
+      setIsAdmin(true);
+      setShowLoginModal(false);
+      setPasswordInput("");
+      setLoginError("");
+    } else {
+      setLoginError("Incorrect password. Please try again.");
+    }
+  };
+
+  const handleAdminLogout = () => {
+    sessionStorage.removeItem("guru_admin");
+    setIsAdmin(false);
+  };
+
+  const visibleStaticPhotos = STATIC_PHOTOS.filter(
+    (p) => !hiddenStaticIds.includes(p.id),
+  );
+
+  const displayError =
+    validationError || (blobError ? String(blobError) : null);
+  const totalCount = visibleStaticPhotos.length + photos.length;
+  const isProcessing = isUploading || uploadProgress !== null;
 
   return (
     <section id="photos" className="py-16 md:py-24 bg-muted/30">
       <div className="container">
         <div className="mx-auto max-w-5xl">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 relative">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
               Photos
             </h2>
             <p className="text-lg text-muted-foreground">Our Gallery</p>
+            {!isAdmin && (
+              <button
+                type="button"
+                onClick={() => setShowLoginModal(true)}
+                className="absolute bottom-0 right-0 text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors p-1"
+                aria-label="Admin login"
+                data-ocid="photos.open_modal_button"
+                title="Admin"
+              >
+                <Lock className="h-3 w-3" />
+              </button>
+            )}
           </div>
+
+          {/* Admin login modal */}
+          {showLoginModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <div
+                className="bg-background rounded-lg shadow-xl p-6 w-full max-w-sm mx-4"
+                data-ocid="photos.modal"
+              >
+                <h3 className="text-lg font-semibold mb-4">Admin Login</h3>
+                <Input
+                  type="password"
+                  placeholder="Enter admin password"
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleAdminLogin()}
+                  className="mb-3"
+                  data-ocid="photos.input"
+                  autoFocus
+                />
+                {loginError && (
+                  <p
+                    className="text-destructive text-sm mb-3"
+                    data-ocid="photos.error_state"
+                  >
+                    {loginError}
+                  </p>
+                )}
+                <div className="flex gap-2 justify-end">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setShowLoginModal(false);
+                      setPasswordInput("");
+                      setLoginError("");
+                    }}
+                    data-ocid="photos.cancel_button"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleAdminLogin}
+                    data-ocid="photos.confirm_button"
+                  >
+                    Login
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {displayError && (
             <Alert
@@ -210,54 +288,98 @@ export default function Photos() {
               className="mb-6"
               role="alert"
               aria-live="polite"
+              data-ocid="photos.error_state"
             >
               <AlertDescription>{displayError}</AlertDescription>
             </Alert>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8">
-            <div className="flex gap-3 flex-wrap justify-center sm:justify-start">
-              <Button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isProcessing}
-                className="gap-2"
-              >
-                <Upload className="h-4 w-4" />
-                {isProcessing ? "Processing..." : "Upload Photos"}
-              </Button>
-              {photos.length > 0 && (
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="outline" className="gap-2">
-                      <Trash2 className="h-4 w-4" />
-                      Clear Uploaded
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Clear uploaded photos?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This will remove all {photos.length} uploaded photo
-                        {photos.length !== 1 ? "s" : ""}. This cannot be undone.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={handleClearAll}>
-                        Clear All
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              )}
+          {/* Upload progress */}
+          {isProcessing && uploadProgress !== null && (
+            <div
+              className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200"
+              data-ocid="photos.loading_state"
+            >
+              <p className="text-sm text-blue-700 mb-2 font-medium">
+                Uploading {uploadingFileName ?? "photo"}...{" "}
+                {Math.round(uploadProgress)}%
+              </p>
+              <Progress value={uploadProgress} className="h-2" />
             </div>
-            <div className="text-sm text-muted-foreground">
-              {STATIC_PHOTOS.length + photos.length} photo
-              {STATIC_PHOTOS.length + photos.length !== 1 ? "s" : ""}
+          )}
+
+          {isAdmin && (
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8">
+              <div className="flex gap-3 flex-wrap justify-center sm:justify-start">
+                <Button
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isProcessing}
+                  className="gap-2"
+                  data-ocid="photos.upload_button"
+                >
+                  <Upload className="h-4 w-4" />
+                  {isProcessing ? "Uploading..." : "Upload Photos"}
+                </Button>
+                {photos.length > 0 && (
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="gap-2"
+                        data-ocid="photos.delete_button"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        Clear Uploaded
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent data-ocid="photos.dialog">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Clear uploaded photos?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This will remove all {photos.length} uploaded photo
+                          {photos.length !== 1 ? "s" : ""}. This cannot be
+                          undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel data-ocid="photos.cancel_button">
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={handleClearAll}
+                          data-ocid="photos.confirm_button"
+                        >
+                          Clear All
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleAdminLogout}
+                  className="gap-2 text-muted-foreground"
+                  data-ocid="photos.button"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </Button>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                {totalCount} photo{totalCount !== 1 ? "s" : ""} &middot;{" "}
+                <span className="text-blue-600 font-medium">Admin Mode</span>
+              </div>
             </div>
-          </div>
+          )}
+
+          {!isAdmin && (
+            <div className="text-sm text-muted-foreground text-right mb-8">
+              {totalCount} photo{totalCount !== 1 ? "s" : ""}
+            </div>
+          )}
 
           <input
             ref={fileInputRef}
@@ -269,38 +391,65 @@ export default function Photos() {
             aria-label="Upload photos"
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {STATIC_PHOTOS.map((photo) => (
-              <Card key={photo.id} className="overflow-hidden">
-                <div className="aspect-square">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+            data-ocid="photos.list"
+          >
+            {visibleStaticPhotos.map((photo, idx) => (
+              <Card
+                key={photo.id}
+                className="group relative overflow-hidden"
+                data-ocid={`photos.item.${idx + 1}`}
+              >
+                <div className="aspect-square relative">
                   <img
                     src={photo.src}
                     alt={photo.name}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
+                  {isAdmin && (
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => handleRemoveStatic(photo.id)}
+                        aria-label={`Remove ${photo.name}`}
+                        data-ocid={`photos.delete_button.${idx + 1}`}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </Card>
             ))}
-            {photos.map((photo) => (
-              <Card key={photo.id} className="group relative overflow-hidden">
+            {photos.map((photo, idx) => (
+              <Card
+                key={photo.id}
+                className="group relative overflow-hidden"
+                data-ocid={`photos.item.${visibleStaticPhotos.length + idx + 1}`}
+              >
                 <div className="aspect-square relative">
                   <img
-                    src={photo.dataUrl}
+                    src={photo.url}
                     alt={photo.name}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <Button
-                      variant="destructive"
-                      size="icon"
-                      onClick={() => handleRemove(photo.id)}
-                      aria-label={`Remove ${photo.name}`}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
+                  {isAdmin && (
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => handleRemove(photo.id)}
+                        aria-label={`Remove ${photo.name}`}
+                        data-ocid={`photos.delete_button.${visibleStaticPhotos.length + idx + 1}`}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </Card>
             ))}

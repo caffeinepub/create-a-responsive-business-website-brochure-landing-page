@@ -175,6 +175,12 @@ export default function About() {
                 UMESH
               </h1>
 
+              {/* Release Date */}
+              <p className="text-base font-semibold text-muted-foreground">
+                Release Date:{" "}
+                <span className="text-primary">11 April 2026</span>
+              </p>
+
               {/* Poster Area */}
               <div className="w-full">
                 {posterUrl ? (
