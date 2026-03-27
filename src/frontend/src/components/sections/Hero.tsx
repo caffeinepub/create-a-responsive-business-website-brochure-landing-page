@@ -47,7 +47,7 @@ export default function Hero() {
           <div className="relative">
             <div className="aspect-video overflow-hidden rounded-2xl border border-border/50 shadow-2xl">
               <img
-                src="/assets/generated/investment-hero.dim_1600x900.png"
+                src="/assets/Valentine's Day 2026 Investment Poster with Romance (2).jpg"
                 alt="GURU & ASSOCIATES SERVICES PRIVATE LIMITED - Professional investment and financial consulting services"
                 className="h-full w-full object-cover"
               />
