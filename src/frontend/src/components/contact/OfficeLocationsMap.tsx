@@ -1,53 +1,44 @@
-import { MapPin, ExternalLink } from 'lucide-react';
+import { ExternalLink, MapPin } from "lucide-react";
 
 // Office data with full addresses for Google Maps links
 const offices = [
   {
-    name: 'Head Office',
-    location: 'Ponda',
-    address: 'G-05, Aniruddh Plaza, Shantinagar Road, Nr. Corporation Bank, Ponda - Goa 403401',
+    name: "Head Office",
+    location: "Ponda",
+    address:
+      "G-05, Aniruddh Plaza, Shantinagar Road, Nr. Corporation Bank, Ponda - Goa 403401",
     lat: 15.4018,
     lng: 74.0123,
   },
   {
-    name: 'Branch Office',
-    location: 'Marcel',
-    address: 'FF2, First Floor Omkar Adonis Blue Plaza, Deulwada Marcel - Goa 403 107',
+    name: "Branch Office",
+    location: "Marcel",
+    address:
+      "FF2, First Floor Omkar Adonis Blue Plaza, Deulwada Marcel - Goa 403 107",
     lat: 15.4589,
     lng: 73.9456,
   },
 ];
 
 export default function OfficeLocationsMap() {
-  // Calculate the bounding box for both locations with padding
-  const minLat = Math.min(...offices.map(o => o.lat)) - 0.05;
-  const maxLat = Math.max(...offices.map(o => o.lat)) + 0.05;
-  const minLng = Math.min(...offices.map(o => o.lng)) - 0.05;
-  const maxLng = Math.max(...offices.map(o => o.lng)) + 0.05;
-  
-  const centerLat = (minLat + maxLat) / 2;
-  const centerLng = (minLng + maxLng) / 2;
-  
-  // OpenStreetMap static tile URL
-  const zoom = 11;
-  const mapWidth = 800;
-  const mapHeight = 600;
-  
-  // Using OpenStreetMap tiles via static map service
+  const minLat = Math.min(...offices.map((o) => o.lat)) - 0.05;
+  const maxLat = Math.max(...offices.map((o) => o.lat)) + 0.05;
+  const minLng = Math.min(...offices.map((o) => o.lng)) - 0.05;
+  const maxLng = Math.max(...offices.map((o) => o.lng)) + 0.05;
+
   const staticMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${minLng},${minLat},${maxLng},${maxLat}&layer=mapnik`;
-  
-  // Convert lat/lng to pixel coordinates for SVG overlay
+
   const latToY = (lat: number) => {
     const latRange = maxLat - minLat;
     return ((maxLat - lat) / latRange) * 100;
   };
-  
+
   const lngToX = (lng: number) => {
     const lngRange = maxLng - minLng;
     return ((lng - minLng) / lngRange) * 100;
   };
-  
-  const officePositions = offices.map(office => ({
+
+  const officePositions = offices.map((office) => ({
     ...office,
     x: lngToX(office.lng),
     y: latToY(office.lat),
@@ -57,7 +48,6 @@ export default function OfficeLocationsMap() {
     <div className="space-y-4">
       <h3 className="text-2xl font-semibold">Our Locations</h3>
       <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-border/50 bg-muted">
-        {/* Map iframe */}
         <iframe
           title="Office Locations Map"
           src={staticMapUrl}
@@ -65,14 +55,15 @@ export default function OfficeLocationsMap() {
           style={{ border: 0 }}
           loading="lazy"
         />
-        
-        {/* SVG overlay for markers and connecting line */}
+
         <svg
+          role="img"
+          aria-label="Map markers showing office locations"
           className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
-          {/* Connecting line */}
+          <title>Map markers showing office locations</title>
           <line
             x1={officePositions[0].x}
             y1={officePositions[0].y}
@@ -83,11 +74,9 @@ export default function OfficeLocationsMap() {
             strokeDasharray="2,1"
             opacity="0.8"
           />
-          
-          {/* Markers */}
+
           {officePositions.map((office, index) => (
             <g key={office.name}>
-              {/* Marker circle background */}
               <circle
                 cx={office.x}
                 cy={office.y}
@@ -96,8 +85,6 @@ export default function OfficeLocationsMap() {
                 stroke="hsl(var(--background))"
                 strokeWidth="0.3"
               />
-              
-              {/* Marker pulse effect */}
               <circle
                 cx={office.x}
                 cy={office.y}
@@ -127,8 +114,7 @@ export default function OfficeLocationsMap() {
             </g>
           ))}
         </svg>
-        
-        {/* Labels overlay */}
+
         <div className="absolute inset-0 pointer-events-none">
           {officePositions.map((office) => (
             <div
@@ -143,8 +129,12 @@ export default function OfficeLocationsMap() {
                 <div className="flex items-center gap-2 whitespace-nowrap">
                   <MapPin className="h-3.5 w-3.5 text-primary flex-shrink-0" />
                   <div className="text-xs">
-                    <div className="font-semibold text-foreground">{office.name}</div>
-                    <div className="text-muted-foreground">{office.location}</div>
+                    <div className="font-semibold text-foreground">
+                      {office.name}
+                    </div>
+                    <div className="text-muted-foreground">
+                      {office.location}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -152,8 +142,7 @@ export default function OfficeLocationsMap() {
           ))}
         </div>
       </div>
-      
-      {/* Legend */}
+
       <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-primary" />
@@ -165,7 +154,6 @@ export default function OfficeLocationsMap() {
         </div>
       </div>
 
-      {/* Google Maps Links */}
       <div className="flex flex-col sm:flex-row gap-3 pt-2">
         {offices.map((office) => (
           <a

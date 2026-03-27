@@ -1,12 +1,11 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
-  const scrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const element = document.querySelector('#contact');
+  const scrollToContact = () => {
+    const element = document.querySelector("#contact");
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -20,32 +19,28 @@ export default function Hero() {
                 Expert Tax, Financial & Property Consulting in Goa
               </h1>
               <p className="text-lg text-muted-foreground sm:text-xl md:text-2xl max-w-[600px]">
-                GURU & ASSOCIATES SERVICES PRIVATE LIMITED provides comprehensive consulting services including tax planning, financial advisory, insurance, and property solutions across  Marcel (office) and Ponda (Head Office), Goa.
+                GURU & ASSOCIATES SERVICES PRIVATE LIMITED provides
+                comprehensive consulting services including tax planning,
+                financial advisory, insurance, and property solutions across
+                Marcel (office) and Ponda (Head Office), Goa.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button 
-                asChild 
-                size="lg"
-                className="text-base"
-              >
-                <a href="#contact" onClick={scrollToContact}>
-                  Get Started
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+              <Button size="lg" className="text-base" onClick={scrollToContact}>
+                Get Started
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
-                asChild 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="lg"
                 className="text-base"
+                onClick={() =>
+                  document
+                    .querySelector("#services")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
-                <a href="#services" onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' });
-                }}>
-                  Our Services
-                </a>
+                Our Services
               </Button>
             </div>
           </div>

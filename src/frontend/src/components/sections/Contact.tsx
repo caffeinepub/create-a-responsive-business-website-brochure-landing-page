@@ -1,19 +1,21 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
-import ContactForm from '../contact/ContactForm';
-import OfficeLocationsMap from '../contact/OfficeLocationsMap';
+import { Mail, MapPin, Phone } from "lucide-react";
+import ContactForm from "../contact/ContactForm";
+import OfficeLocationsMap from "../contact/OfficeLocationsMap";
 
 const offices = [
   {
-    name: 'Head Office',
-    address: 'G-05, Aniruddh Plaza, Shantinagar Road, Nr. Corporation Bank, Ponda - Goa 403401',
-    phones: ['8975739464', '7822881010'],
-    email: 'guru.associates36@gmail.com',
+    name: "Head Office",
+    address:
+      "G-05, Aniruddh Plaza, Shantinagar Road, Nr. Corporation Bank, Ponda - Goa 403401",
+    phones: ["8975739464", "7822881010"],
+    email: "guru.associates36@gmail.com",
   },
   {
-    name: 'Branch Office',
-    address: 'FF2, First Floor Omkar Adonis Blue Plaza, Deulwada Marcel - Goa 403 107',
-    phones: ['9370567036'],
-    email: 'guruassociatesmarcel@yahoo.com',
+    name: "Branch Office",
+    address:
+      "FF2, First Floor Omkar Adonis Blue Plaza, Deulwada Marcel - Goa 403 107",
+    phones: ["9370567036"],
+    email: "guruassociatesmarcel@yahoo.com",
   },
 ];
 
@@ -26,7 +28,8 @@ export default function Contact() {
             Get In Touch
           </h2>
           <p className="text-lg text-muted-foreground sm:text-xl">
-            Ready to discuss your tax, financial, or property needs? We'd love to hear from you. Reach out today and let's start a conversation.
+            Ready to discuss your tax, financial, or property needs? We'd love
+            to hear from you. Reach out today and let's start a conversation.
           </p>
         </div>
 
@@ -41,8 +44,10 @@ export default function Contact() {
                     key={office.name}
                     className="p-6 rounded-lg border border-border/50 bg-card space-y-4"
                   >
-                    <h4 className="text-lg font-semibold text-primary">{office.name}</h4>
-                    
+                    <h4 className="text-lg font-semibold text-primary">
+                      {office.name}
+                    </h4>
+
                     <div className="flex items-start space-x-3">
                       <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                       <a
@@ -58,7 +63,10 @@ export default function Contact() {
                     {office.phones.length > 0 && (
                       <div className="space-y-2">
                         {office.phones.map((phone) => (
-                          <div key={phone} className="flex items-center space-x-3">
+                          <div
+                            key={phone}
+                            className="flex items-center space-x-3"
+                          >
                             <Phone className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                             <a
                               href={`tel:+91${phone}`}

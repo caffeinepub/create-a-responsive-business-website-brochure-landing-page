@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 export interface PhotoItem {
   id: string;
@@ -8,7 +8,7 @@ export interface PhotoItem {
   type: string;
 }
 
-const STORAGE_KEY = 'guru-associates-photos';
+const STORAGE_KEY = "guru-associates-photos";
 const MAX_STORAGE_SIZE = 4 * 1024 * 1024; // 4MB limit for localStorage
 
 export function usePersistedPhotos() {
@@ -26,8 +26,8 @@ export function usePersistedPhotos() {
         }
       }
     } catch (err) {
-      console.error('Failed to load photos from storage:', err);
-      setError('Failed to load saved photos');
+      console.error("Failed to load photos from storage:", err);
+      setError("Failed to load saved photos");
     }
   }, []);
 
@@ -35,23 +35,23 @@ export function usePersistedPhotos() {
   const savePhotos = (newPhotos: PhotoItem[]) => {
     try {
       const serialized = JSON.stringify(newPhotos);
-      
+
       // Check storage size
       if (serialized.length > MAX_STORAGE_SIZE) {
-        setError('Storage limit exceeded. Please remove some photos.');
+        setError("Storage limit exceeded. Please remove some photos.");
         return false;
       }
-      
+
       localStorage.setItem(STORAGE_KEY, serialized);
       setPhotos(newPhotos);
       setError(null);
       return true;
     } catch (err) {
-      console.error('Failed to save photos:', err);
-      if (err instanceof Error && err.name === 'QuotaExceededError') {
-        setError('Storage quota exceeded. Please remove some photos.');
+      console.error("Failed to save photos:", err);
+      if (err instanceof Error && err.name === "QuotaExceededError") {
+        setError("Storage quota exceeded. Please remove some photos.");
       } else {
-        setError('Failed to save photos');
+        setError("Failed to save photos");
       }
       return false;
     }
@@ -63,7 +63,7 @@ export function usePersistedPhotos() {
   };
 
   const removePhoto = (id: string) => {
-    const updated = photos.filter(photo => photo.id !== id);
+    const updated = photos.filter((photo) => photo.id !== id);
     return savePhotos(updated);
   };
 

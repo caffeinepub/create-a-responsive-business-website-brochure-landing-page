@@ -1,7 +1,4 @@
-import { useRef, useState } from 'react';
-import { Upload, X, Trash2, ImageIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,19 +9,34 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { usePersistedPhotos, PhotoItem } from '@/hooks/usePersistedPhotos';
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { type PhotoItem, usePersistedPhotos } from "@/hooks/usePersistedPhotos";
+import { ImageIcon, Trash2, Upload, X } from "lucide-react";
+import { useRef, useState } from "react";
 
-const ACCEPTED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB per file
+const ACCEPTED_IMAGE_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/jpg",
+  "image/webp",
+];
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 export default function Photos() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  
-  const { photos, addPhotos, removePhoto, clearAll, error: storageError, clearError } = usePersistedPhotos();
+
+  const {
+    photos,
+    addPhotos,
+    removePhoto,
+    clearAll,
+    error: storageError,
+    clearError,
+  } = usePersistedPhotos();
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -39,22 +51,21 @@ export default function Photos() {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
-      // Validate file type
       if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
-        errors.push(`${file.name}: Invalid file type. Please use PNG, JPG, or WebP.`);
+        errors.push(
+          `${file.name}: Invalid file type. Please use PNG, JPG, or WebP.`,
+        );
         continue;
       }
 
-      // Validate file size
       if (file.size > MAX_FILE_SIZE) {
         errors.push(`${file.name}: File too large. Maximum size is 5MB.`);
         continue;
       }
 
       try {
-        // Convert to data URL
         const dataUrl = await fileToDataUrl(file);
-        
+
         newPhotos.push({
           id: `${Date.now()}-${i}-${Math.random().toString(36).substr(2, 9)}`,
           dataUrl,
@@ -62,27 +73,26 @@ export default function Photos() {
           size: file.size,
           type: file.type,
         });
-      } catch (err) {
+      } catch (_err) {
         errors.push(`${file.name}: Failed to process file.`);
       }
     }
 
     if (errors.length > 0) {
-      setValidationError(errors.join(' '));
+      setValidationError(errors.join(" "));
     }
 
     if (newPhotos.length > 0) {
       const success = addPhotos(newPhotos);
       if (!success && !storageError) {
-        setValidationError('Failed to save photos. Storage may be full.');
+        setValidationError("Failed to save photos. Storage may be full.");
       }
     }
 
     setIsProcessing(false);
-    
-    // Reset input
+
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -118,18 +128,22 @@ export default function Photos() {
               Photos
             </h2>
             <p className="text-lg text-muted-foreground">
-              Upload and manage your photo gallery. Supports PNG, JPG, and WebP formats.
+              Upload and manage your photo gallery. Supports PNG, JPG, and WebP
+              formats.
             </p>
           </div>
 
-          {/* Error Display */}
           {displayError && (
-            <Alert variant="destructive" className="mb-6" role="alert" aria-live="polite">
+            <Alert
+              variant="destructive"
+              className="mb-6"
+              role="alert"
+              aria-live="polite"
+            >
               <AlertDescription>{displayError}</AlertDescription>
             </Alert>
           )}
 
-          {/* Upload Controls */}
           <Card className="p-6 mb-8">
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
               <div className="flex gap-3 flex-wrap justify-center sm:justify-start">
@@ -139,9 +153,9 @@ export default function Photos() {
                   className="gap-2"
                 >
                   <Upload className="h-4 w-4" />
-                  {isProcessing ? 'Processing...' : 'Upload Photos'}
+                  {isProcessing ? "Processing..." : "Upload Photos"}
                 </Button>
-                
+
                 {photos.length > 0 && (
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
@@ -154,7 +168,9 @@ export default function Photos() {
                       <AlertDialogHeader>
                         <AlertDialogTitle>Clear all photos?</AlertDialogTitle>
                         <AlertDialogDescription>
-                          This will permanently remove all {photos.length} photo{photos.length !== 1 ? 's' : ''} from your gallery. This action cannot be undone.
+                          This will permanently remove all {photos.length} photo
+                          {photos.length !== 1 ? "s" : ""} from your gallery.
+                          This action cannot be undone.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -169,14 +185,14 @@ export default function Photos() {
               </div>
 
               <div className="text-sm text-muted-foreground">
-                {photos.length} photo{photos.length !== 1 ? 's' : ''}
+                {photos.length} photo{photos.length !== 1 ? "s" : ""}
               </div>
             </div>
 
             <input
               ref={fileInputRef}
               type="file"
-              accept={ACCEPTED_IMAGE_TYPES.join(',')}
+              accept={ACCEPTED_IMAGE_TYPES.join(",")}
               multiple
               onChange={handleFileSelect}
               className="hidden"
@@ -184,7 +200,6 @@ export default function Photos() {
             />
           </Card>
 
-          {/* Photo Gallery */}
           {photos.length === 0 ? (
             <Card className="p-12">
               <div className="text-center text-muted-foreground">
@@ -217,7 +232,10 @@ export default function Photos() {
                     </div>
                   </div>
                   <div className="p-3 bg-card">
-                    <p className="text-sm font-medium truncate" title={photo.name}>
+                    <p
+                      className="text-sm font-medium truncate"
+                      title={photo.name}
+                    >
                       {photo.name}
                     </p>
                     <p className="text-xs text-muted-foreground">

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { CheckCircle2 } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 
 interface FormData {
   name: string;
@@ -19,9 +19,9 @@ interface FormErrors {
 
 export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -35,17 +35,17 @@ export default function ContactForm() {
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Name is required";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = "Message is required";
     }
 
     setErrors(newErrors);
@@ -59,14 +59,14 @@ export default function ContactForm() {
       setIsSubmitted(true);
       // Reset form after 5 seconds
       setTimeout(() => {
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: "", email: "", message: "" });
         setIsSubmitted(false);
       }, 5000);
     }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -82,7 +82,8 @@ export default function ContactForm() {
         <CheckCircle2 className="h-16 w-16 text-primary" />
         <h3 className="text-2xl font-semibold">Thank You!</h3>
         <p className="text-muted-foreground max-w-md">
-          We've received your message and will get back to you soon. We appreciate you reaching out to us.
+          We've received your message and will get back to you soon. We
+          appreciate you reaching out to us.
         </p>
       </div>
     );
@@ -99,7 +100,7 @@ export default function ContactForm() {
           placeholder="Your name"
           value={formData.name}
           onChange={handleChange}
-          className={errors.name ? 'border-destructive' : ''}
+          className={errors.name ? "border-destructive" : ""}
         />
         {errors.name && (
           <p className="text-sm text-destructive">{errors.name}</p>
@@ -115,7 +116,7 @@ export default function ContactForm() {
           placeholder="your.email@example.com"
           value={formData.email}
           onChange={handleChange}
-          className={errors.email ? 'border-destructive' : ''}
+          className={errors.email ? "border-destructive" : ""}
         />
         {errors.email && (
           <p className="text-sm text-destructive">{errors.email}</p>
@@ -131,7 +132,7 @@ export default function ContactForm() {
           rows={6}
           value={formData.message}
           onChange={handleChange}
-          className={errors.message ? 'border-destructive' : ''}
+          className={errors.message ? "border-destructive" : ""}
         />
         {errors.message && (
           <p className="text-sm text-destructive">{errors.message}</p>

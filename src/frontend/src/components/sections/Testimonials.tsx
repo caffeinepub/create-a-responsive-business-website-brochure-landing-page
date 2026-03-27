@@ -1,21 +1,24 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Quote } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    id: 'testimonial-1',
-    name: 'Aachal Naik',
-    quote: 'Working with this team has been transformative for our business. Their expertise and dedication helped us achieve results beyond our expectations.',
+    id: "testimonial-1",
+    name: "Aachal Naik",
+    quote:
+      "Working with this team has been transformative for our business. Their expertise and dedication helped us achieve results beyond our expectations.",
   },
   {
-    id: 'testimonial-2',
-    name: 'Kajal Borkar',
-    quote: 'The level of professionalism and attention to detail is outstanding. They truly understand what it takes to deliver exceptional service.',
+    id: "testimonial-2",
+    name: "Kajal Borkar",
+    quote:
+      "The level of professionalism and attention to detail is outstanding. They truly understand what it takes to deliver exceptional service.",
   },
   {
-    id: 'testimonial-3',
-    name: 'Sonal Naik',
-    quote: 'From start to finish, the experience was seamless. They listened to our needs and delivered solutions that perfectly aligned with our goals.',
+    id: "testimonial-3",
+    name: "Sonal Naik",
+    quote:
+      "From start to finish, the experience was seamless. They listened to our needs and delivered solutions that perfectly aligned with our goals.",
   },
 ];
 
@@ -28,7 +31,8 @@ export default function Testimonials() {
             What Our Clients Say
           </h2>
           <p className="text-lg text-muted-foreground sm:text-xl">
-            Don't just take our word for it. Here's what our clients have to say about working with us.
+            Don't just take our word for it. Here's what our clients have to say
+            about working with us.
           </p>
         </div>
 

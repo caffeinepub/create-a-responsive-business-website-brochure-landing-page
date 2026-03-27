@@ -1,35 +1,39 @@
-import { Target, Users, Zap, Briefcase, Scale, Film } from 'lucide-react';
+import { Briefcase, Film, Scale, Target, Users, Zap } from "lucide-react";
 
 const features = [
   {
     icon: Target,
-    title: 'Expert Guidance',
-    description: 'Professional consulting services with deep expertise in tax, finance, and property matters.',
+    title: "Expert Guidance",
+    description:
+      "Professional consulting services with deep expertise in tax, finance, and property matters.",
   },
   {
     icon: Users,
-    title: 'Client-Centered',
-    description: 'Your success is our priority. We build lasting partnerships based on trust and reliability.',
+    title: "Client-Centered",
+    description:
+      "Your success is our priority. We build lasting partnerships based on trust and reliability.",
   },
   {
     icon: Zap,
-    title: 'Comprehensive Solutions',
-    description: 'From tax planning to property documentation, we provide end-to-end consulting services.',
+    title: "Comprehensive Solutions",
+    description:
+      "From tax planning to property documentation, we provide end-to-end consulting services.",
   },
 ];
 
 const divisions = [
   {
     icon: Briefcase,
-    title: 'GURU & ASSOCIATE (WEALTH CREATOR)',
+    title: "GURU & ASSOCIATE (WEALTH CREATOR)",
   },
   {
     icon: Scale,
-    title: 'G.P. ASSOCIATE LEGAL FIRM',
+    title: "G.P. ASSOCIATE LEGAL FIRM",
   },
   {
     icon: Film,
-    title: 'GURU & ASSOCIATE PRODUCTION ( DIGIAL MARKETING,  ADVERTISEMENT , ENTERTAINMENT & FILM )',
+    title:
+      "GURU & ASSOCIATE PRODUCTION ( DIGIAL MARKETING,  ADVERTISEMENT , ENTERTAINMENT & FILM )",
   },
 ];
 
@@ -42,7 +46,9 @@ export default function About() {
             About Guru & Associates
           </h2>
           <p className="text-lg text-muted-foreground sm:text-xl">
-            We are a trusted consulting firm serving clients across Goa with expertise in tax and financial consulting, financial advisory services, and comprehensive property consulting solutions.
+            We are a trusted consulting firm serving clients across Goa with
+            expertise in tax and financial consulting, financial advisory
+            services, and comprehensive property consulting solutions.
           </p>
         </div>
 
