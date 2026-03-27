@@ -39,7 +39,10 @@ export default function Footer() {
               <img
                 src="/assets/generated/business-logo.dim_512x512.png"
                 alt="GURU & ASSOCIATES SERVICES PRIVATE LIMITED"
-                className="h-10 w-10"
+                className="h-16 w-16 object-contain rounded-md bg-white p-1 shadow-sm border border-border/30"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/assets/GRLOGO-1.jpg";
+                }}
               />
               <span className="text-xl font-bold">
                 GURU & ASSOCIATES SERVICES PRIVATE LIMITED
@@ -117,18 +120,22 @@ export default function Footer() {
             © {currentYear} GURU & ASSOCIATES SERVICES PRIVATE LIMITED. All
             rights reserved.
           </p>
-          <p className="flex items-center gap-1">
-            Built with <Heart className="h-4 w-4 text-red-500 fill-red-500" />{" "}
-            using{" "}
-            <a
-              href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
-            >
-              caffeine.ai
-            </a>
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+            <p className="flex items-center gap-1">
+              Built with <Heart className="h-4 w-4 text-red-500 fill-red-500" />{" "}
+              using{" "}
+              <a
+                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
+              >
+                caffeine.ai
+              </a>
+            </p>
+            <span className="hidden sm:inline">|</span>
+            <p>Built By: Aachal Naik</p>
+          </div>
         </div>
       </div>
     </footer>

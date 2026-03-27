@@ -31,9 +31,12 @@ export default function Navbar() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <img
-            src="/assets/GRLOGO-1.jpg"
+            src="/assets/generated/business-logo.dim_512x512.png"
             alt="GURU & ASSOCIATES SERVICES PRIVATE LIMITED"
             className="h-14 w-14 object-contain"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "/assets/GRLOGO-1.jpg";
+            }}
           />
           <span className="text-xl font-bold tracking-tight">
             GURU & ASSOCIATES SERVICES PRIVATE LIMITED
