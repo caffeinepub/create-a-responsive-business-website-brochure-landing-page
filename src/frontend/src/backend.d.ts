@@ -18,6 +18,11 @@ export interface PhotoData {
     blob: ExternalBlob;
     name: string;
 }
+export interface FilmData {
+    name: string;
+    releaseDate: string;
+    poster: ExternalBlob | null;
+}
 export interface UserProfile {
     name: string;
 }
@@ -37,4 +42,8 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     removePhoto(id: string): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    addFilm(id: string, name: string, releaseDate: string): Promise<boolean>;
+    removeFilm(id: string): Promise<boolean>;
+    getFilms(): Promise<Array<[string, FilmData]>>;
+    updateFilmPoster(id: string, blob: ExternalBlob): Promise<boolean>;
 }
